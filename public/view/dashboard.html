@@ -43,7 +43,7 @@
                             </div>
                             <div class="col-md-4">
                                 <h4 class="mbm">Média dos tempos de antendimento</h4>
-                                <span class="task-item" ng-repeat="mediaMin in dashboardCtrl.dadosMinutos">{{mediaMin.nome}}<small class="pull-right text-muted">{{mediaMin.valor}}</small>
+                                <span class="task-item" ng-repeat="mediaMin in dashboardCtrl.dadosMinutos">{{mediaMin.nome}}<small class="pull-right text-muted">{{mediaMin.valor | number:0}}</small>
                                     <div class="progress progress-sm">
                                         <div role="progressbar" aria-valuenow="5" aria-valuemin="0" aria-valuemax="8"
                                            style="width: 100%;" class="progress-bar progress-bar-{{mediaMin.cor}}">

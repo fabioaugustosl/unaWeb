@@ -205,9 +205,10 @@ apoioApp.controller('RegiaoController',
 			var adicionada = true;
 
 			var callback = function(apoioSalva){
-				console.log(apoioSalva);
+				console.log('call back ',apoio);
+				console.log('call back ',apoioSalva);
 				if(adicionada){
-					notificarSucesso("Apoio adicionado com sucesso.");
+					notificarSucesso(apoio.nome+" habilitado para atender a região "+regiaoCtrl.regiaoSelecionada.nome+".");
 				} else {
 					notificarSucesso("Apoio removido com sucesso.");
 				}
@@ -295,9 +296,9 @@ apoioApp.controller('RegiaoController',
 		regiaoCtrl.atualizarUnidadeSelecionada = function(unidade){
 			var adicionada = true;
 			var callback = function(unidadeSalva){
-				console.log(unidadeSalva);
+				console.log(unidade);
 				if(adicionada){
-					notificarSucesso("Unidade adicionada com sucesso.");
+					notificarSucesso(unidade.nome+" adicionado(a) a região "+regiaoCtrl.regiaoSelecionada.nome+".");
 				} else {
 					notificarSucesso("Unidade removida com sucesso.");
 				}

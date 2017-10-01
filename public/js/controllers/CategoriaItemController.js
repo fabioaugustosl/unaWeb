@@ -312,10 +312,11 @@ apoioApp.controller('CategoriaItemController',
 
 		var callbackSucessoSalvarCateg = function(categSalva) {
 			var msg = 'Categoria foi salva com sucesso. ';
-			if(categoriaCtrl.catogorias){
-				categoriaCtrl.catogorias = {};
-			}
-			categoriaCtrl.catogorias.push(categSalva);
+			//if(categoriaCtrl.catogorias){
+			//	categoriaCtrl.catogorias = [];
+			//}
+			//categoriaCtrl.catogorias.push(categSalva);
+			categoriaCtrl.getCategorias(); 
 
 			categoriaCtrl.msg = msg;
 			categoriaCtrl.msgErro = '';

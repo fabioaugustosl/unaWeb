@@ -25,9 +25,13 @@ apoioApp.controller('UnidadeController',
 
 		
 		var getEmpresa = function(idEmpresa){
+
+			console.log('var recuperar a empresa nesta lista : ',unidadeCtrl.empresas);
+			console.log('vai buscar pelo id ',idEmpresa);
 			if(unidadeCtrl.empresas){
-				for (i = 0; i < unidadeCtrl.empresas.lenght; i++) { 
+				for (i = 0; i < unidadeCtrl.empresas.length; i++) { 
 					var e = unidadeCtrl.empresas[i];
+					console.log(e);
 					if(e._id == idEmpresa){
 						return e;
 					}
@@ -201,8 +205,9 @@ apoioApp.controller('UnidadeController',
 				notificarErro(unidadeCtrl.msgErro);
 	    	} else {
 	    		var emp = getEmpresa(unidadeCtrl.empresaSelecionada);
+	    		console.log(emp);
 	    		unidadeCtrl.agrupSalvar.idEmpresa = unidadeCtrl.empresaSelecionada;
-				unidadesadeCtrl.agrupSalvar.nomeEmpresa = emp.nomeEmpresa;
+				unidadeCtrl.agrupSalvar.nomeEmpresa = emp.nomeEmpresa;
 
 		    	unidadeService.salvarAgrupamento(unidadeCtrl.agrupSalvar, callbackSucessoSalvarAgrup, callbackErroSalvarAgrup);
 	    	}
@@ -222,7 +227,7 @@ apoioApp.controller('UnidadeController',
 		var callbackSucessoSalvarAgrup = function(agrupSalva) {
 			var msg = 'Prédio foi salvo com sucesso. ';
 			if(unidadeCtrl.agrupamentos){
-				unidadeCtrl.agrupamentos = {};
+				unidadeCtrl.agrupamentos = [];
 			}
 			unidadeCtrl.agrupamentos.push(agrupSalva);
 
