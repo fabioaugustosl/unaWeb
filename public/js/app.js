@@ -9,6 +9,7 @@ var apoioApp = angular.module('apoioApp', ['ngRoute', 'ngStorage', 'ngMaterial',
 						  .when('/regiao', {templateUrl:'/view/regiao.html', controller: 'RegiaoController'})
 						  .when('/unidade', {templateUrl:'/view/unidade.html', controller: 'UnidadeController'})
 						  .when('/grafico', {templateUrl:'/view/grafico.html', controller: 'GraficoController'})
+						  .when('/autorizado', {templateUrl:'/view/autorizado.html', controller: 'SolicitanteAutorizadoController'})
 						  .when('/chamados', {templateUrl:'/view/chamados.html', controller: 'ChamadosController'})
 						  .otherwise({redirectTo:'/index'});
 
@@ -38,5 +39,18 @@ var apoioApp = angular.module('apoioApp', ['ngRoute', 'ngStorage', 'ngMaterial',
 		);
 
 
-
+apoioApp.directive('ngConfirmClick', [
+    function(){
+        return {
+            link: function (scope, element, attr) {
+                var msg = attr.ngConfirmClick || "Você tem certeza que deseja continuar?";
+                var clickAction = attr.confirmedClick;
+                element.bind('click',function (event) {
+                    if ( window.confirm(msg) ) {
+                        scope.$eval(clickAction)
+                    }
+                });
+            }
+        };
+}])
 

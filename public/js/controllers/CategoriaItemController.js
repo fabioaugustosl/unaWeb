@@ -13,21 +13,20 @@ apoioApp.controller('CategoriaItemController',
 
 		categoriaCtrl.categoriaSelecionado = null;
 
-		//categoriaCtrl.itens = null;
 		categoriaCtrl.itemSelecionadoParaInserir = null;
-
 		categoriaCtrl.empresas = null;
+
+		// esse variavel eh apenas para agora quando existe apenas 1 unidade...
+		categoriaCtrl.empresaSelecionada = null;
 
 
 
 		var notificarErro = function(msg){
-			notify({ message: msg, 
-					classes: 'alert-danger', position: 'right', duration: 3000 });
+			notify({ message: msg, classes: 'alert-danger', position: 'right', duration: 3000 });
 		};
 
 		var notificarSucesso = function(msg){
-			notify({ message: msg, 
-					classes: 'alert-success', position: 'right', duration: 3000 });
+			notify({ message: msg, classes: 'alert-success', position: 'right', duration: 3000 });
 		};
 
 
@@ -36,9 +35,11 @@ apoioApp.controller('CategoriaItemController',
 		var callbackListarEmpresaPorDono = function(resultado){
 			console.log('TODOS as empresas: ',resultado);
 			categoriaCtrl.empresas = resultado;
+			if(categoriaCtrl.empresas && categoriaCtrl.empresas.length == 1){
+				categoriaCtrl.empresaSelecionada = categoriaCtrl.empresas[0];
+			}
 		};
 
-		
 		categoriaCtrl.getEmpresasPorDono = function(){
 			empresaService.listarPorDono(dono, callbackListarEmpresaPorDono);		
 		};
@@ -69,13 +70,13 @@ apoioApp.controller('CategoriaItemController',
 		categoriaCtrl.getItensPorDono = function(){
 			categoriaItemService.getItensPorDono(dono, callbackListarItensPorDono);		
 		};
+
 	
 		categoriaCtrl.adicionarItem = function() {
 			if(!categoriaCtrl.categoriaSelecionado){
 				categoriaCtrl.msgErro = "É necessário selecionar uma categoria";
 				notificarErro("É necessário selecionar uma categoria");
 	    	} else {
-
 				categoriaCtrl.msgErro = "";
 				//console.log('categ selecionado: ',categoriaCtrl.categoriaSelecionado);
 				categoriaCtrl.modoSalvarItem = true;
@@ -101,13 +102,13 @@ apoioApp.controller('CategoriaItemController',
 				
 		};
 
+
 		categoriaCtrl.cancelarSalvarItem = function(){
-			
 	  		categoriaCtrl.msgErro = "";
 			categoriaCtrl.modoSalvarItem = null;
 			categoriaCtrl.itemSalvar = {};
+			categoriaCtrl.modoSalvarItem = false;
 		};
-
 
 
 		var callbackSucessoSalvarItem  = function(itemSalvo) {
@@ -119,12 +120,10 @@ apoioApp.controller('CategoriaItemController',
 				categoriaCtrl.itemSalvar = {};
 				categoriaCtrl.modoSalvarItem = false;
 
-
 				// como para salvar inserimos apenas o _id na lista. Agora vamos retirar esse id e colocar o objeto na lista, isso para que a exibição fique bacana.
 				var indexOfItem = categoriaCtrl.categoriaSelecionado.itens.indexOf(itemSalvo._id);
 	        	categoriaCtrl.categoriaSelecionado.itens.splice(indexOfItem, 1);
 	        	categoriaCtrl.categoriaSelecionado.itens.push(itemSalvo);
-
 			};
 			
 			var callbackNovoErro = function(){
@@ -134,7 +133,6 @@ apoioApp.controller('CategoriaItemController',
 
 			categoriaCtrl.categoriaSelecionado.itens.push(itemSalvo._id);
     		categoriaItemService.salvarCategoria(categoriaCtrl.categoriaSelecionado, callbackSucessoSalvarItemNaCateg,callbackNovoErro);
-			
 		};
 
 
@@ -150,8 +148,6 @@ apoioApp.controller('CategoriaItemController',
 	  		};
 
 			categoriaItemService.getItemPorNome(categoriaCtrl.itemSalvar.nome, callbackRecuperarItemPorNome);
-
-	  		
 		};
 
 
@@ -233,6 +229,38 @@ apoioApp.controller('CategoriaItemController',
 
 	  	/*Parte de  CATEGORIA */
 
+		categoriaCtrl.removerCategoria = function(idCateg){
+			
+			var callback = function(idCategoria){
+				for(var i = 0; i < categoriaCtrl.categorias.length; i++){
+	    			var uni = categoriaCtrl.categorias[i];
+	    			if(idCategoria == uni._id){
+	    				categExcluir = uni;
+	    				break;
+	    			}
+	    		} 
+	    		var indexOfItem = categoriaCtrl.categorias.indexOf(categExcluir);
+	        	categoriaCtrl.categorias.splice(indexOfItem, 1);
+
+				categoriaCtrl.msg = "A categoria foi removida com sucesso.";
+				categoriaCtrl.msgErro = '';
+				notificarSucesso(categoriaCtrl.msg);
+
+			};
+
+			var callbackErro = function(msg){
+				categoriaCtrl.msg = "";
+				categoriaCtrl.msgErro = 'Ocorreu um erro ao remover a categoria.';
+				notificarErro(categoriaCtrl.msgErro);
+			};
+
+		   
+
+		    categoriaItemService.removerCategoria(idCateg, callback, callbackErro);
+		    
+	    };
+
+
 		categoriaCtrl.selectionarCategoria = function(categoria){
 			categoriaCtrl.processando  = true;
 			categoriaCtrl.categoriaSelecionado = categoria;
@@ -278,7 +306,6 @@ apoioApp.controller('CategoriaItemController',
 
 
 		categoriaCtrl.adicionarCategoria= function() {
-
 			categoriaCtrl.msgErro = "";
 			
 			categoriaCtrl.modoSalvarCateg = true;
@@ -286,7 +313,6 @@ apoioApp.controller('CategoriaItemController',
 			categoriaCtrl.categSalvar.dono = "una";
 			categoriaCtrl.categSalvar.empresas = [idEmpresa];
 			categoriaCtrl.categSalvar.nome = "";
-		
 	  	};
 
 
@@ -296,6 +322,12 @@ apoioApp.controller('CategoriaItemController',
 				categoriaCtrl.msgErro = "É necessário informar o nome da categoria";
 				notificarErro("É necessário informar o nome da categoria");
 	    	} else {
+	    		// se tiver apenas uma empresa / unidade ela ja eh setada como default daquela categoria
+	    		if(categoriaCtrl.empresaSelecionada ){
+					categoriaCtrl.categSalvar.empresas= [];
+					categoriaCtrl.categSalvar.empresas.push(categoriaCtrl.empresaSelecionada._id);
+				}
+				
 		    	categoriaItemService.salvarCategoria(categoriaCtrl.categSalvar, callbackSucessoSalvarCateg, callbackErroSalvarCateg);
 	    	}
 				
@@ -304,8 +336,8 @@ apoioApp.controller('CategoriaItemController',
 
 		categoriaCtrl.cancelarSalvarCateg = function(){
 			categoriaCtrl.msgErro = "";
-			categoriaCtrl.modoSalvarCateg = null;
 			categoriaCtrl.categSalvar = {};
+			categoriaCtrl.modoSalvarCateg = false;
 		};
 
 
@@ -317,6 +349,7 @@ apoioApp.controller('CategoriaItemController',
 			//}
 			//categoriaCtrl.catogorias.push(categSalva);
 			categoriaCtrl.getCategorias(); 
+			categoriaCtrl.modoSalvarCateg = false;
 
 			categoriaCtrl.msg = msg;
 			categoriaCtrl.msgErro = '';

@@ -14,6 +14,7 @@ apoioApp.controller('MenuController',
 			$scope.classCategoria = "";
 			$scope.classRegiao = "";
 			$scope.classApoio = "";
+			$scope.classAutorizado = "";
 			$scope.classChamados = "";
 
 			if(menuAtivo == "dashboard"){
@@ -30,12 +31,14 @@ apoioApp.controller('MenuController',
 				$scope.classApoio = "active";
 			} else if(menuAtivo == "chamados"){
 				$scope.classChamados = "active";
+			} else if(menuAtivo == "autorizado"){
+				$scope.classAutorizado = "active";
 			}
 
 		}
 
 
-	  	console.log("principal Controller");
+	  //	console.log("principal Controller");
 
 		
 		$scope.irParaDashboard = function(){
@@ -49,6 +52,12 @@ apoioApp.controller('MenuController',
 			resetarMenuSelecionado("apoio");
 			$location.replace();
 			$location.url('/apoio');
+		};
+
+		$scope.irParaAutorizado = function(){
+			resetarMenuSelecionado("autorizado");
+			$location.replace();
+			$location.url('/autorizado');
 		};
 
 		$scope.irParaCategoria = function(){

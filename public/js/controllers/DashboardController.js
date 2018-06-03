@@ -104,7 +104,7 @@ apoioApp.controller('DashboardController',
 
 					dashboardCtrl.resumoChamados.push({
 						nome : 'Fechados hoje',
-						classIcon : 'fa-thumbs-o-up',
+						classIcon : 'fa-thumbs-o-up fa-custon',
 						valor : fechados,
 						infoUpdate : moment().format('D MMMM YYYY, hh:mm'),
 					});
@@ -131,7 +131,6 @@ apoioApp.controller('DashboardController',
 		        	rotulos.push(dado._id.dia+'/'+dado._id.mes+'/'+dado._id.ano);
 		        	serieX.push(dado.total);
 		        }
-
 
 				var data ={
 		       		labels: rotulos,

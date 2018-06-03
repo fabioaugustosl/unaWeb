@@ -30,22 +30,9 @@ apoioApp.controller('ApoioController',
 		
 		
 		var iniciarApoio = function(){
-			
 			apoioCtrl.apoio = {};
 			apoioCtrl.apoio.dono = dono;
-
 		};
-		iniciarApoio();
-
-
-		/*dono: {type:String,lowercase: true, trim: true},
-			idEmpresa: {type:String},
-			nome: {type:String},
-			sexo: {type:String},
-			email: {type:String},
-			telefone: {type:String},
-			linkImagem: {type:String},
-			codigo: {type:String}*/
 
 
 		var callbackRemover = function(){
@@ -61,6 +48,7 @@ apoioApp.controller('ApoioController',
 			apoioCtrl.apoioRemover = null;
 		};
 
+
 		var callbackRemoverErro= function(resultado){
 			apoioCtrl.processando  = false;
 			apoioCtrl.msg = "";
@@ -70,6 +58,7 @@ apoioApp.controller('ApoioController',
 
 			apoioCtrl.apoioRemover = null;
 		};
+
 
 		apoioCtrl.remover = function(ap){
 			apoioCtrl.processando = true;
@@ -83,17 +72,26 @@ apoioApp.controller('ApoioController',
 			apoioCtrl.editando = true
 		};
 
+
 		apoioCtrl.cancelarEdicao = function(ap){
 			iniciarApoio();
 			apoioCtrl.editando = false;
 		};
-
 
 	        	
 		var callbackSalvar = function(resultado){
 			console.log("call back salvar", resultado);
 			
 			if(!apoioCtrl.editando){
+				
+				for(var i = 0; i < apoioCtrl.empresas.length; i++){
+        			var emp = apoioCtrl.empresas[i];
+        			if(resultado.empresa == emp._id){
+        				resultado.empresa = emp;
+        				break;
+        			}
+        		} 
+
 				apoioCtrl.apoios.push(resultado);
 			}
 			apoioCtrl.editando = false;
@@ -107,6 +105,7 @@ apoioApp.controller('ApoioController',
 			iniciarApoio();
 		};
 
+
 		var callbackSalvarErro= function(resultado){
 			apoioCtrl.processando  = false;
 			apoioCtrl.msg = "";
@@ -114,13 +113,11 @@ apoioApp.controller('ApoioController',
 			notificarErro(apoioCtrl.msgErro);
 		};
 
+
 		apoioCtrl.salvar = function(){
 			apoioCtrl.processando = true;
-				
 			apoioService.salvar(apoioCtrl.apoio, callbackSalvar, callbackSalvarErro);		
 		};
-
-
 
 
 		var callbackListar = function(resultado){
@@ -131,20 +128,22 @@ apoioApp.controller('ApoioController',
 		
 		apoioCtrl.getApoios = function(parametros){
 			apoioCtrl.processando = true;
-				
 			apoioService.listar(parametros, callbackListar);		
 		};
 
 
 		var callbackListarEmpresas = function(resultado){
 			apoioCtrl.empresas = resultado;
+			if(apoioCtrl.empresas.length == 1){
+				apoioCtrl.apoio.empresa = apoioCtrl.empresas[0]._id;
+			}
 		};
+
 
 		apoioCtrl.getEmpresas = function(){
-				
+			console.log('APIOOOOOOSS ');
 			empresaService.listarPorDono(dono, callbackListarEmpresas);		
 		};
-
 
 
 		apoioCtrl.pesquisar = function(){
@@ -169,12 +168,14 @@ apoioApp.controller('ApoioController',
 		};
 
 
+		
+		iniciarApoio();
+
 		if(!apoioCtrl.processando){
 			apoioCtrl.getEmpresas();
 			apoioCtrl.pesquisar();
 		}
 		
-
 	}
 	
 );

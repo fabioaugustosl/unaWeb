@@ -27,7 +27,7 @@
                                     <div class="form-group">
                                         <label for="inputName" class="control-label">Nome: *</label>
                                         <div class="input-icon right">
-                                            <input id="inputName" type="text" placeholder="" class="form-control" ng-model="apoioCtrl.apoio.nome"  required/>
+                                            <input id="inputName" type="text" placeholder="" class="form-control" ng-model="apoioCtrl.apoio.nome" oninvalid="this.setCustomValidity('O nome é obrigatório')"  oninput="setCustomValidity('')" required/>
                                         </div>
                                     </div>
                                 </div>
@@ -35,7 +35,7 @@
                                     <div class="form-group">
                                         <label for="selectEmpresa" class="control-label">Empresa: *</label>
                                         <div class="input-icon right">
-                                           <select name="selectEmpresa" ng-model="apoioCtrl.apoio.empresa" class="form-control border-input"  required>
+                                           <select name="selectEmpresa" ng-model="apoioCtrl.apoio.empresa" class="form-control border-input" oninvalid="this.setCustomValidity('O login é obrigatório')"  oninput="setCustomValidity('')" required>
                                               <option value="{{emp._id}}" ng-repeat="emp in apoioCtrl.empresas">{{emp.nomeEmpresa}}</option>
                                             </select>
 
@@ -50,16 +50,16 @@
                                         <label for="inputEmail" class="control-label">E-mail: </label>
                                         <div class="input-icon right">
                                             <i class="fa fa-envelope"></i>
-                                            <input id="inputEmail" type="text" placeholder="" class="form-control"  ng-model="apoioCtrl.apoio.email"   />
+                                            <input id="inputEmail" type="email" placeholder="" class="form-control"  ng-model="apoioCtrl.apoio.email"   />
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label for="inputTelefone" class="control-label">Telefone: </label>
+                                        <label for="inputTelefone" class="control-label">Celular: </label>
                                         <div class="input-icon right">
                                             <i class="fa fa-phone"></i>
-                                            <input id="inputTelefone" type="text" placeholder="" class="form-control"  ng-model="apoioCtrl.apoio.telefone"   />
+                                            <input id="inputTelefone" type="text" placeholder="" class="form-control"  ng-model="apoioCtrl.apoio.telefone" mask='(99) 99999-9999'  />
                                         </div>
                                     </div>
                                 </div>
@@ -71,7 +71,7 @@
                                         <label for="inputLogin" class="control-label">Login: *</label>
                                         <div class="input-icon right">
                                             <i class="fa fa-envelope"></i>
-                                            <input id="inputLogin" type="text" placeholder="" class="form-control"  ng-model="apoioCtrl.apoio.login" maxlength="20"  required />
+                                            <input id="inputLogin" type="text" placeholder="" class="form-control"  ng-model="apoioCtrl.apoio.login" maxlength="20" oninvalid="this.setCustomValidity('O login é obrigatório')"  oninput="setCustomValidity('')" required  />
                                         </div>
                                     </div>
                                 </div>
@@ -80,8 +80,20 @@
                                         <label for="inputSenha" class="control-label">Senha: *</label>
                                         <div class="input-icon right">
                                             <i class="fa fa-phone"></i>
-                                            <input id="inputTelefone" type="password" maxlength="20" placeholder="" class="form-control"  ng-model="apoioCtrl.apoio.senha" required  />
+                                            <input id="inputSenha" type="password" maxlength="20" placeholder="" class="form-control"  ng-model="apoioCtrl.apoio.senha" oninvalid="this.setCustomValidity('A senha é obrigatória')"  oninput="setCustomValidity('')" required  />
                                         </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+
+                                        <input type="checkbox" value="{{apoioCtrl.apoio.super}}" ng-model="apoioCtrl.apoio.super" id="CKB_Super" />
+
+                                        <label for="CKB_Super">Apoio coringa?</label>
+                                            
                                     </div>
                                 </div>
                             </div>
@@ -104,12 +116,11 @@
     <div class="row">
         <div class="col-lg-12">
 
-                    <div class="input-icon right text-white">
-                        <a href="#"><i class="fa fa-search"></i></a>
-                        <input type="text" placeholder="Pesquisar por nome..." class="form-control" ng-model="apoioCtrl.pesquisa.nome" ng-keypress="$event.keyCode == 13 && apoioCtrl.pesquisar()" />
-                    </div>
-            
-         
+            <div class="input-icon right text-white">
+                <a href="#"><i class="fa fa-search"></i></a>
+                <input type="text" placeholder="Pesquisar por nome..." class="form-control" ng-model="apoioCtrl.pesquisa.nome" ng-keypress="$event.keyCode == 13 && apoioCtrl.pesquisar()" />
+            </div>
+
         </div>
     </div>
 
@@ -134,14 +145,14 @@
                             </thead>
 
                             <tbody>
-    	                        <tr ng-repeat="apoio in apoioCtrl.apoios | orderBy : ['nome'] ">
+    	                        <tr ng-repeat="apoio in apoioCtrl.apoios  ">
     	                            <!--td>1</td -->
     	                            <td>{{apoio.nome}}</td>
     	                            <td>{{apoio.email}}</td>
     	                            <td>{{apoio.empresa.nomeEmpresa}}</td>
                                     <td>
-                                        <button type="button" class="btn btn-primary" ng-click="apoioCtrl.remover(apoio)">Remover</button>
-                                        <button type="button" class="btn btn-primary" ng-click="apoioCtrl.editar(apoio)">Editar</button>
+                                        <button type="button" class="btn" ng-confirm-click="Tem certeza que deseja excluir o apoio {{apoio.nome}}?" confirmed-click="apoioCtrl.remover(apoio)"><i class="fa fa-eraser fa-fw fa_custom"></i></button>
+                                        <button type="button" class="btn" ng-click="apoioCtrl.editar(apoio)"><i class="fa fa-edit fa-fw fa_custom"></i></button>
                                     </td>
     	                        </tr>
                             </tbody>

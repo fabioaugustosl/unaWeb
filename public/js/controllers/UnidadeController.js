@@ -4,34 +4,33 @@ apoioApp.controller('UnidadeController',
 		
 		var unidadeCtrl = this;
 
-		$scope.$emit("tituloPagina", "Unidades");
+		$scope.$emit("tituloPagina", "Unidades para atendimento");
 		var dono = $sessionStorage.dono;
 
 
 		var notificarErro = function(msg){
-			notify({ message: msg, 
-					classes: 'alert-danger', position: 'right', duration: 3000 });
+			notify({ message: msg, classes: 'alert-danger', position: 'right', duration: 3000 });
 		};
 
 		var notificarSucesso = function(msg){
-			notify({ message: msg, 
-					classes: 'alert-success', position: 'right', duration: 3000 });
+			notify({ message: msg, classes: 'alert-success', position: 'right', duration: 3000 });
 		};
 
 
 		unidadeCtrl.processando = false;
 		unidadeCtrl.agrupamentoSelecionado = null;
+		unidadeCtrl.idAgrupamentoSelecionado = null;
 		unidadeCtrl.empresaSelecionada = null;
 
 		
 		var getEmpresa = function(idEmpresa){
 
-			console.log('var recuperar a empresa nesta lista : ',unidadeCtrl.empresas);
-			console.log('vai buscar pelo id ',idEmpresa);
+			//console.log('var recuperar a empresa nesta lista : ',unidadeCtrl.empresas);
+			//console.log('vai buscar pelo id ',idEmpresa);
 			if(unidadeCtrl.empresas){
 				for (i = 0; i < unidadeCtrl.empresas.length; i++) { 
 					var e = unidadeCtrl.empresas[i];
-					console.log(e);
+					//console.log(e);
 					if(e._id == idEmpresa){
 						return e;
 					}
@@ -44,22 +43,22 @@ apoioApp.controller('UnidadeController',
 		var callbackListarEmpresas = function(resultado){
 			unidadeCtrl.empresas = resultado;
 			if(unidadeCtrl.empresas){
-				unidadeCtrl.empresaSelecionada = unidadeCtrl.empresas[0]._id;
-
-				unidadeCtrl.getAgrupamentos(unidadeCtrl.empresaSelecionada);
+				unidadeCtrl.empresaSelecionada = unidadeCtrl.empresas[0];
+				console.log('Unidade selecionada: ', unidadeCtrl.empresaSelecionada);
+				unidadeCtrl.getAgrupamentos(unidadeCtrl.empresaSelecionada._id);
 			}
 		};
+
 
 		unidadeCtrl.getEmpresas = function(){
 			empresaService.listarPorDono(dono, callbackListarEmpresas);		
 		};
 
+
 		unidadeCtrl.trocarEmpresa = function(){
-			unidadeCtrl.getAgrupamentos(unidadeCtrl.empresaSelecionada);
+			unidadeCtrl.getAgrupamentos(unidadeCtrl.empresaSelecionada._id);
 		};
 		
-
-
 
 		var callbackListarAgrupamentos = function(resultado){
 			console.log("call back listar", resultado);
@@ -70,8 +69,7 @@ apoioApp.controller('UnidadeController',
 
 		
 		unidadeCtrl.getAgrupamentos = function(idEmpresa){
-			unidadeCtrl.processando = true;
-				
+			unidadeCtrl.processando = true;	
 			unidadeService.recuperarAgrupamentosPorEmpresa(idEmpresa, callbackListarAgrupamentos);		
 		};
 
@@ -86,17 +84,26 @@ apoioApp.controller('UnidadeController',
 		
 		unidadeCtrl.getUnidades = function(idAgrupamento){
 			unidadeCtrl.processando = true;
+			console.log('get unidades ',idAgrupamento);
 			unidadeService.getUnidades(idAgrupamento, callbackListarUnidades);		
 		};
 
 
 
-		unidadeCtrl.selectionarAgrupamento = function(agrupamento){
+		unidadeCtrl.selecionarAgrupamento = function(){
 			unidadeCtrl.processando  = true;
-			unidadeCtrl.agrupamentoSelecionado = agrupamento;
-			unidadeCtrl.getUnidades(agrupamento._id);
-		};
+			console.log('selectionar agrupamento ',unidadeCtrl.idAgrupamentoSelecionado);
 
+			for (i = 0; i < unidadeCtrl.agrupamentos.length; i++) { 
+				var ag = unidadeCtrl.agrupamentos[i];
+				if(ag._id == unidadeCtrl.idAgrupamentoSelecionado){
+					unidadeCtrl.agrupamentoSelecionado = ag;
+					break;
+				}
+			}
+
+			unidadeCtrl.getUnidades(unidadeCtrl.idAgrupamentoSelecionado);
+		};
 
 
 		/*INSERIR UNIDADE */
@@ -122,9 +129,31 @@ apoioApp.controller('UnidadeController',
 					}
 		    	}
 		    }
-
-			
 	  	};
+
+
+	  	unidadeCtrl.removerUnidade = function(unidade){
+			unidadeService.removerUnidade(unidade, callbackRemoverUnidade);
+	  	};
+
+	  	var callbackRemoverUnidade  = function(idUnidade) {
+			
+			for(var i = 0; i < unidadeCtrl.unidades.length; i++){
+    			var uni = unidadeCtrl.unidades[i];
+    			if(idUnidade == uni._id){
+    				unidadeExcluir = uni;
+    				break;
+    			}
+    		} 
+    		console.log('vai remover : ', uni);
+			var indexOfItem = unidadeCtrl.unidades.indexOf(unidadeExcluir);
+			console.log('index vai remover : ', indexOfItem);
+		    unidadeCtrl.unidades.splice(indexOfItem, 1);
+
+			unidadeCtrl.msg = "Unidade de atendimento removida com sucesso.";
+			unidadeCtrl.msgErro = '';
+			notificarSucesso(unidadeCtrl.msg);
+		};
 
 
 	  	unidadeCtrl.salvarUnidade = function(){
@@ -134,20 +163,17 @@ apoioApp.controller('UnidadeController',
 				notificarErro(unidadeCtrl.msgErro);
 	    	} else {
 		    	unidadeCtrl.unidadeSalvar.idAgrupamento = unidadeCtrl.agrupamentoSelecionado._id;
-
 				unidadeService.salvarUnidade(unidadeCtrl.unidadeSalvar, callbackSucessoSalvarUnidade, callbackErroSalvarUnidade);
-	    	}
-
-				
+	    	}	
 		};
 
+
 		unidadeCtrl.cancelarSalvarUnidade = function(){
-			
 	  		unidadeCtrl.msgErro = "";
 			unidadeCtrl.modoSalvarUnidade = null;
 			unidadeCtrl.unidadeSalvar = {};
+			unidadeCtrl.modoSalvarUnidade = false;
 		};
-
 
 
 		var callbackSucessoSalvarUnidade  = function(unidadeSalva) {
@@ -157,6 +183,8 @@ apoioApp.controller('UnidadeController',
 			unidadeCtrl.msg = msg;
 			unidadeCtrl.msgErro = '';
 			notificarSucesso(unidadeCtrl.msg);
+
+			unidadeCtrl.modoSalvarUnidade = false;
 
 			// limpar
 			unidadeCtrl.modoSalvarUnidade = null;
@@ -170,14 +198,9 @@ apoioApp.controller('UnidadeController',
 			notificarErro(unidadeCtrl.msgErro);
 		};
 
-
-
 	  		
 
-
-
-	  	/*INSERIR PREDIO */
-
+	  	/*INSERIR PREDIO - chamado aqui de agrupamento */
 
 		unidadeCtrl.adicionarAgrupamento = function() {
 
@@ -204,22 +227,21 @@ apoioApp.controller('UnidadeController',
 	    		unidadeCtrl.msgErro = "É necessário informar a empresa";
 				notificarErro(unidadeCtrl.msgErro);
 	    	} else {
-	    		var emp = getEmpresa(unidadeCtrl.empresaSelecionada);
+	    		var emp = unidadeCtrl.empresaSelecionada;
 	    		console.log(emp);
 	    		unidadeCtrl.agrupSalvar.idEmpresa = unidadeCtrl.empresaSelecionada;
 				unidadeCtrl.agrupSalvar.nomeEmpresa = emp.nomeEmpresa;
 
 		    	unidadeService.salvarAgrupamento(unidadeCtrl.agrupSalvar, callbackSucessoSalvarAgrup, callbackErroSalvarAgrup);
 	    	}
-
-				
 		};
 
-		unidadeCtrl.cancelarSalvarAgrup = function(){
-			
+
+		unidadeCtrl.cancelarSalvarAgrup = function(){	
 	  		unidadeCtrl.msgErro = "";
 			unidadeCtrl.modoSalvarAgrup = null;
 			unidadeCtrl.agrupSalvar = {};
+			unidadeCtrl.modoSalvarAgrup = false;
 		};
 
 
@@ -231,6 +253,11 @@ apoioApp.controller('UnidadeController',
 			}
 			unidadeCtrl.agrupamentos.push(agrupSalva);
 
+			// atualizar a listagem
+			unidadeCtrl.idAgrupamentoSelecionado = agrupSalva._id;
+			unidadeCtrl.selecionarAgrupamento();
+
+			unidadeCtrl.modoSalvarAgrup = false;
 			unidadeCtrl.msg = msg;
 			unidadeCtrl.msgErro = '';
 			notificarSucesso(unidadeCtrl.msg);
@@ -242,7 +269,6 @@ apoioApp.controller('UnidadeController',
 			unidadeCtrl.msgErro = msg;
 			notificarErro(unidadeCtrl.msgErro);
 		};
-
 
 
 

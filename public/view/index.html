@@ -23,6 +23,7 @@
     <link rel="stylesheet" href="/css/all.css">
     <link rel="stylesheet" href="/css/animate.css">
     <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/css-personalizado.css">
     <link rel="stylesheet" href="/css/font-awesome.min.css">
     <link rel="stylesheet" href="/css/introjs.css">
     <link rel="stylesheet" href="/css/jplist-custom.css">
@@ -66,14 +67,14 @@
         <!--BEGIN TOPBAR-->
         <div id="header-topbar-option-demo" class="page-header-topbar">
             <nav id="topbar" role="navigation" style="margin-bottom: 0;" data-step="3" class="navbar navbar-default navbar-static-top">
-            <div class="navbar-header">
+            <div class="navbar-header" style="background: #FFFFFF">
                 <button type="button" data-toggle="collapse" data-target=".sidebar-collapse" class="navbar-toggle"><span class="sr-only">Alterar navegação</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button>
-                <a id="logo" href="#" class="navbar-brand">
-                    <span class="fa fa-rocket"></span><span class="logo-text">Apoio UNA </span>
+                <a id="logo" href="#" class="navbar-brand" style="margin: 0px!important; padding: 5px!important;">
+                    <span class="fa fa-rocket fa_custom"></span><span class="logo-text"><img src="/img/una-logo.jpg" title="Sistema NSI" style="max-height: 40px;" /> </span>
                     <span style="display: none" class="logo-text-icon">µ</span>
                     </a>
             </div>
-            <div class="topbar-main"><a id="menu-toggle" href="#" class="hidden-xs"><i class="fa fa-bars"></i></a>
+            <div class="topbar-main"><a id="menu-toggle" href="#" class="hidden-xs"><i class="fa fa-bars fa_custom"></i></a>
                 
                 <!--form id="topbar-search" action="" method="" class="hidden-sm hidden-xs">
                     <div class="input-icon right text-white"><a href="#"><i class="fa fa-search"></i></a><input type="text" placeholder="Search here..." class="form-control text-white"/></div>
@@ -85,27 +86,27 @@
                     </ul>
                 </div-->
                 <ul class="nav navbar navbar-top-links navbar-right mbn">
-                    <li class="dropdown"><a data-hover="dropdown" href="#" class="dropdown-toggle"><i class="fa fa-bell fa-fw"></i><span class="badge badge-green">3</span></a>
+                    <li class="dropdown "><a data-hover="dropdown" href="#" class="dropdown-toggle "><i class="fa fa-bell fa-fw fa_custom"></i><span class="badge badge-green">3</span></a>
                         
                     </li>
-                    <li class="dropdown"><a data-hover="dropdown" href="#" class="dropdown-toggle"><i class="fa fa-envelope fa-fw"></i><span class="badge badge-orange">7</span></a>
+                    <li class="dropdown"><a data-hover="dropdown" href="#" class="dropdown-toggle"><i class="fa fa-envelope fa-fw fa_custom"></i><span class="badge badge-orange">7</span></a>
                         
                     </li>
-                    <li class="dropdown"><a data-hover="dropdown" href="#" class="dropdown-toggle"><i class="fa fa-tasks fa-fw"></i><span class="badge badge-yellow">8</span></a>
+                    <li class="dropdown"><a data-hover="dropdown" href="#" class="dropdown-toggle"><i class="fa fa-tasks fa-fw fa_custom"></i><span class="badge badge-yellow">8</span></a>
                         
                     </li>
-                    <li class="dropdown topbar-user"><a data-hover="dropdown" href="#" class="dropdown-toggle"><!--img src="images/avatar/48.jpg" alt="" class="img-responsive img-circle"/-->&nbsp;<span class="hidden-xs">Fabio Lopes</span>&nbsp;<span class="caret"></span></a>
-                        <ul class="dropdown-menu dropdown-user pull-right">
-                            <li><a href="#"><i class="fa fa-user"></i>Meu Perfil</a></li>
-                            <li><a href="#"><i class="fa fa-calendar"></i>Calendário</a></li>
-                            <li><a href="#"><i class="fa fa-envelope"></i>Mensagens<span class="badge badge-danger">3</span></a></li>
-                            <li><a href="#"><i class="fa fa-tasks"></i>Terefas<span class="badge badge-success">7</span></a></li>
+                    <li class="dropdown topbar-user fa_custom"><a data-hover="dropdown" href="#" class="dropdown-toggle"><!--img src="images/avatar/48.jpg" alt="" class="img-responsive img-circle"/-->&nbsp;<span class="hidden-xs menuSuperior">Fabio Lopes</span>&nbsp;<span class="caret"></span></a>
+                        <ul class="dropdown-menu dropdown-user pull-right fa_custom">
+                            <li><a href="#"><i class="fa fa-user menuSuperior fa_custom " ></i>Meu Perfil</a></li>
+                            <li><a href="#"><i class="fa fa-calendar fa_custom"></i>Calendário</a></li>
+                            <li><a href="#"><i class="fa fa-envelope fa_custom"></i>Mensagens<span class="badge badge-danger">3</span></a></li>
+                            <li><a href="#"><i class="fa fa-tasks fa_custom"></i>Terefas<span class="badge badge-success">7</span></a></li>
                             <li class="divider"></li>
-                            <li><a href="#"><i class="fa fa-lock"></i>Trava tela</a></li>
-                            <li><a href="Login.html"><i class="fa fa-key"></i>Sair</a></li>
+                            <li><a href="#"><i class="fa fa-lock fa_custom"></i>Trava tela</a></li>
+                            <li><a href="Login.html"><i class="fa fa-key fa_custom"></i>Sair</a></li>
                         </ul>
                     </li>
-                    <li id="topbar-chat" class="hidden-xs"><a href="javascript:void(0)" data-step="4" data-intro="&lt;b&gt;Form chat&lt;/b&gt; keep you connecting with other coworker" data-position="left" class="btn-chat"><i class="fa fa-comments"></i><span class="badge badge-info">3</span></a></li>
+                    <li id="topbar-chat fa_custom" class="hidden-xs"><a href="javascript:void(0)" data-step="4" data-intro="&lt;b&gt;Form chat&lt;/b&gt; keep you connecting with other coworker" data-position="left" class="btn-chat"><i class="fa fa-comments"></i><span class="badge badge-info ">3</span></a></li>
                 </ul>
             </div>
         </nav>
@@ -171,6 +172,13 @@
                         </a>
                     </li>
 
+                    <li ng-class="classEmpresas">
+                        <a href="#" ng-click="irParaEmpresa()"><i class="fa fa-university fa-fw">
+                            <div class="icon-bg bg-pink"></div>
+	                       </i><span class="menu-title">Instituições/Unidades</span>
+                        </a>
+                    </li>
+
                     <li ng-class="classApoio">
                         <a href="#" ng-click="irParaApoio()"><i class="fa fa-user fa-fw">
                             <div class="icon-bg bg-pink"></div>
@@ -178,17 +186,17 @@
                         </a>
                     </li>
 
-                    <li ng-class="classEmpresas">
-                        <a href="#" ng-click="irParaEmpresa()"><i class="fa fa-university fa-fw">
+                    <li ng-class="classAutorizado">
+                        <a href="#" ng-click="irParaAutorizado()"><i class="fa fa-users fa-fw">
                             <div class="icon-bg bg-pink"></div>
-	                       </i><span class="menu-title">Empresas/Intituições</span>
+                           </i><span class="menu-title">Solicitantes autorizados</span>
                         </a>
                     </li>
 
                     <li ng-class="classUnidade">
                         <a  href="#" ng-click="irParaUnidade()"><i class="fa fa-map-marker fa-fw">
                             <div class="icon-bg bg-green"></div>
-                    	   </i><span class="menu-title">Unidades</span>
+                    	   </i><span class="menu-title">Unidades de atendimento</span>
                         </a>
                     </li>
 
@@ -284,7 +292,7 @@
             <!--BEGIN PAGE WRAPPER-->
             <div id="page-wrapper" ng-controller="PrincipalController">
                 <!--BEGIN TITLE & BREADCRUMB PAGE-->
-                <div id="title-breadcrumb-option-demo" class="page-title-breadcrumb">
+                <div id="title-breadcrumb-option-demo" class="page-title-breadcrumb" style="background: #f0f2f5;">
                     <div class="page-header pull-left" >
                         <div class="page-title">{{tituloPagina}}</div>
                     </div>
@@ -400,6 +408,7 @@
     <script src="/js/services/RegiaoService.js"></script>
     <script src="/js/services/RelatorioIngressoService.js"></script>
     <script src="/js/services/SessaoService.js"></script>
+    <script src="/js/services/SolicitanteAutorizadoService.js"></script>
     <script src="/js/services/UnidadeService.js"></script>
     <script src="/js/controllers/ApoioController.js"></script>
     <script src="/js/controllers/CategoriaItemController.js"></script>
@@ -410,6 +419,7 @@
     <script src="/js/controllers/MenuController.js"></script>
     <script src="/js/controllers/PrincipalController.js"></script>
     <script src="/js/controllers/RegiaoController.js"></script>
+    <script src="/js/controllers/SolicitanteAutorizadoController.js"></script>
     <script src="/js/controllers/UnidadeController.js"></script>
     <!-- endinject -->
 

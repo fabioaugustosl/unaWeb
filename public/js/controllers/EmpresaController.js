@@ -1,11 +1,11 @@
 
 apoioApp.controller('EmpresaController', 
-	function ($scope, $rootScope, $routeParams, $sessionStorage, notify, empresaService){
+	function ($scope, $rootScope, $routeParams, $sessionStorage, $mdDialog, notify, empresaService){
 		
 		console.log("chegou no controller da empresa");
 		var empresaCtrl = this;
 
-		$scope.$emit("tituloPagina", "Empresas / Instutuições");
+		$scope.$emit("tituloPagina", "Cadastro de Unidades");
 		var dono = $sessionStorage.dono;
 
 		$scope.pesquisa = {};
@@ -45,7 +45,7 @@ apoioApp.controller('EmpresaController',
 	        empresaCtrl.empresas.splice(indexOfItem, 1);
 	        
 			empresaCtrl.processando  = false;
-			empresaCtrl.msg = "Empresa foi removida com sucesso";
+			empresaCtrl.msg = "Unidade foi removida com sucesso";
 			notificarSucesso(empresaCtrl.msg);
 			empresaCtrl.msgErro = '';
 			empresaCtrl.empresaRemover = null;
@@ -54,15 +54,18 @@ apoioApp.controller('EmpresaController',
 		var callbackRemoverErro= function(resultado){
 			empresaCtrl.processando  = false;
 			empresaCtrl.msg = "";
-			empresaCtrl.msgErro = 'Ocorreu um erro ao remover a empresa';
+			empresaCtrl.msgErro = 'Ocorreu um erro ao remover a unidade';
 			notificarErro(empresaCtrl.msgErro);
 			empresaCtrl.empresaRemover = null;
 		};
 
+
 		empresaCtrl.remover = function(emp){
+
 			empresaCtrl.processando = true;
 			empresaCtrl.empresaRemover = emp;
-			empresaService.remover(emp._id, callbackRemover, callbackRemoverErro);		
+			empresaService.remover(emp._id, callbackRemover, callbackRemoverErro);
+
 		};
 
 	        	
@@ -70,7 +73,7 @@ apoioApp.controller('EmpresaController',
 			console.log("call back listar", resultado);
 			empresaCtrl.empresas.push(resultado);
 			empresaCtrl.processando  = false;
-			empresaCtrl.msg = "Empresa foi salva com sucesso";
+			empresaCtrl.msg = "Unidade foi salva com sucesso";
 			notificarSucesso(empresaCtrl.msg);
 			empresaCtrl.msgErro = '';
 			iniciarEmpresa();
@@ -79,13 +82,15 @@ apoioApp.controller('EmpresaController',
 		var callbackSalvarErro= function(resultado){
 			empresaCtrl.processando  = false;
 			empresaCtrl.msg = "";
-			empresaCtrl.msgErro = 'Ocorreu um erro ao salvar a empresa';
+			empresaCtrl.msgErro = 'Ocorreu um erro ao salvar a Unidade';
 			notificarErro(empresaCtrl.msgErro);
 		};
 
 		empresaCtrl.salvar = function(){
-			console.log('chegou no salvar empresas');
+			console.log('chegou no salvar unidades');
 			empresaCtrl.processando = true;
+
+			// TODO : validar mesmo nome de unidades
 				
 			empresaService.salvar(empresaCtrl.empresa, callbackSalvar, callbackSalvarErro);		
 		};
@@ -110,9 +115,9 @@ apoioApp.controller('EmpresaController',
 
 		empresaCtrl.pesquisar = function(){
 				
-			var p = '';
+			var p = '?dono='+dono;
 			if(empresaCtrl.pesquisa.nome){
-				p += 'nome='+$scope.pesquisa.nome;
+				p += '&nome='+$scope.pesquisa.nome;
 			}
 			// if(empresaCtrl.pesquisa.conta){
 			// 	if(p){
