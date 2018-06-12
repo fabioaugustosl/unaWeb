@@ -2,7 +2,7 @@
 apoioApp.factory('parametroService', function($http, $log){
 	
 	//var urlPadrao = 'http://localhost:3000';
-	var urlPadrao = 'http://52.40.14.3:3000';
+	var urlPadrao = 'http://172.31.19.92:3000';
 	
 	var urlLog = urlPadrao+'/api/parametro/v1/';
 
