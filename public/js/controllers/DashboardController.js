@@ -33,21 +33,21 @@ apoioApp.controller('DashboardController',
 					}
 
 					dashboardCtrl.dadosMinutos.push({
-						nome : 'Média de espera do professor (min)',
+						nome : 'Espera do professor (min)',
 						cor: 'green',
 						valor : totalEsperaProfessor / totalChamados,
 						infoUpdate : moment().format('D MMMM YYYY, hh:mm'),
 					});
 
 					dashboardCtrl.dadosMinutos.push({
-						nome : 'Tempo médio de atendimento efetivo (min)',
+						nome : 'Atendimento efetivo (min)',
 						cor: 'red',
 						valor : totalTempoAtendimento / totalChamados,
 						infoUpdate : moment().format('D MMMM YYYY, hh:mm'),
 					});
 
 					dashboardCtrl.dadosMinutos.push({
-						nome : 'Tempo médio de atendimento total (min)',
+						nome : 'Atendimento total (min)',
 						cor: 'yellow',
 						valor : (totalTempoAtendimento +totalEsperaProfessor) / totalChamados,
 						infoUpdate : moment().format('D MMMM YYYY, hh:mm'),
@@ -166,23 +166,26 @@ apoioApp.controller('DashboardController',
 		
 
 		var recuperarChamadosAbertos = function(){
+			console.log('recuperar chamados abertos');
 			
 			var callback = function(chamados){ 
-
+				console.log('calback chamados abertos : ',chamados);
 				// verifica se tem chamado novo
 				var totalChamadosTela = 0; 
 				var totalChamadosCallback = 0;
 
 				if(dashboardCtrl.chamadosAbertos) { totalChamadosTela = dashboardCtrl.chamadosAbertos.length; };
 				if(chamados){  totalChamadosCallback = chamados.length;}
-				
+				console.log('totalChamadosCallback: ',totalChamadosCallback, totalChamadosTela);
 				if(totalChamadosCallback > 0 ){
-
-					var idUltimoTela = dashboardCtrl.chamadosAbertos[(totalChamadosTela-1)];
-					var idUltimoCallback = chamados[(totalChamadosCallback -1)];
+					if(totalChamadosTela > 0){
+						var idUltimoTela = dashboardCtrl.chamadosAbertos[(totalChamadosTela-1)];
+						var idUltimoCallback = chamados[(totalChamadosCallback -1)];
+					}
+					
 
 					if((totalChamadosCallback != totalChamadosTela)
-						|| (idUltimoTela != idUltimoCallback)){
+						|| ((!idUltimoTela && !idUltimoCallback) || (idUltimoTela != idUltimoCallback))){
 						notify({ message: "Novo chamado aberto!", 
 							classes: 'alert-success', position: 'right', duration: 5000 });
 						vibrarTela();
@@ -209,7 +212,7 @@ apoioApp.controller('DashboardController',
 		montarContadoresDeMediaMinutos();
 		
 		$timeout(function(){montarContadoresChamados()}, 100);
-		$timeout(function(){recuperarChamadosAbertos()}, 200);
+		//$timeout(function(){recuperarChamadosAbertos()}, 250);
 		$timeout(function(){recuperarResumoQtdChamadosAbertosDia()}, 400);
 
 		$interval( function(){ montarContadoresChamados(); }, 60000);

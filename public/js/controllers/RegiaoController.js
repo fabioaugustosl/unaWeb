@@ -36,8 +36,6 @@ apoioApp.controller('RegiaoController',
 
 
 
-
-
 		/* Parte da regra para controle da selecao de EMPRESAS */
 
 		var callbackListarEmpresaPorDono = function(resultado){
@@ -176,6 +174,37 @@ apoioApp.controller('RegiaoController',
 	  	};
 
 
+	  	regiaoCtrl.removerRegiao = function() {
+
+	  		var callbackSucessoRemoverRegiao = function(idRegiaoRemovida) {
+				var msg = 'Região de atendimento foi removida com sucesso. ';
+				
+				for(var i = 0; i < regiaoCtrl.regioes.length; i++){
+	    			var reg = regiaoCtrl.regioes[i];
+	    			if(idRegiaoRemovida == reg._id){
+	    				regExcluir = reg;
+	    				break;
+	    			}
+	    		} 
+	    		var indexOfItem = regiaoCtrl.regioes.indexOf(regExcluir);
+	        	regiaoCtrl.regioes.splice(indexOfItem, 1);
+
+				regiaoCtrl.idRegiaoSelecionada = null;
+
+				regiaoCtrl.msg = msg;
+				regiaoCtrl.msgErro = '';
+				notificarSucesso(regiaoCtrl.msg);
+			};
+
+			var callbackErroRemoverRegiao  = function(msg) {
+				notificarErro("Ocorreu um erro ao remover a região.");
+			};
+
+	  		regiaoService.removerRegiao(regiaoCtrl.idRegiaoSelecionada, callbackSucessoRemoverRegiao, callbackErroRemoverRegiao);
+	  		
+	  	};
+
+
 	  	regiaoCtrl.salvarRegiao = function(){
 	  		console.log(regiaoCtrl.regiaoSalvar);
 	  		if(!regiaoCtrl.regiaoSalvar.nome){
@@ -232,7 +261,7 @@ apoioApp.controller('RegiaoController',
 		regiaoCtrl.atualizarApoioSelecionada = function(apoio){
 			var adicionada = true;
 
-			var callback = function(apoioSalva){
+			/*var callback = function(apoioSalva){
 				console.log('call back ',apoio);
 				console.log('call back ',apoioSalva);
 				if(adicionada){
@@ -246,20 +275,30 @@ apoioApp.controller('RegiaoController',
 				console.log(msg);
 				notificarErro(msg);
 			};
-
+*/
 			if(regiaoCtrl.regiaoSelecionada) {
 		        if(apoio.checked){
 		        	var existe = verificarApoioJaExisteParaEssaRegiao(apoio);
 		        	if(!existe){
-						regiaoCtrl.regiaoSelecionada.apoios.push(apoio._id);
+						regiaoCtrl.regiaoSelecionada.apoios.push(apoio);
 		        	}
+		        	notificarSucesso(apoio.nome+" habilitado para atender a região "+regiaoCtrl.regiaoSelecionada.nome+".");
 	        	
 		        }else{
 		        	adicionada = false;
-		        	var indexOfItem = regiaoCtrl.regiaoSelecionada.apoios.indexOf(apoio._id);
-		        	regiaoCtrl.regiaoSelecionada.apoios.splice(indexOfItem, 1);
+		        	
+		        	for(var i = 0; i < regiaoCtrl.regiaoSelecionada.apoios.length; i++){
+	        			var ap = regiaoCtrl.regiaoSelecionada.apoios[i];
+	        			if(ap._id == apoio._id){
+	        				indiceRemoverApoio = i;
+	        				break;
+	        			}
+	        		}
+
+		        	regiaoCtrl.regiaoSelecionada.apoios.splice(indiceRemoverApoio, 1);
+		        	notificarSucesso("Apoio removido com sucesso.");
 		        }
-		        regiaoService.salvarRegiao(regiaoCtrl.regiaoSelecionada, callback, callbackErro);
+		        //regiaoService.salvarRegiao(regiaoCtrl.regiaoSelecionada, callback, callbackErro);
 		    }
 	    };
 
@@ -326,7 +365,7 @@ apoioApp.controller('RegiaoController',
 
 		regiaoCtrl.atualizarUnidadeSelecionada = function(unidade){
 			var adicionada = true;
-			var callback = function(unidadeSalva){
+			/*var callback = function(unidadeSalva){
 				console.log('Unidade salva : ',unidadeSalva);
 				if(adicionada){
 					notificarSucesso(unidade.nome+" adicionado(a) a região "+regiaoCtrl.regiaoSelecionada.nome+".");
@@ -338,23 +377,33 @@ apoioApp.controller('RegiaoController',
 			var callbackErro = function(msg){
 				console.log(msg);
 				notificarErro(msg);
-			};
+			};*/
 
 			if(regiaoCtrl.regiaoSelecionada) {
 		        if(unidade.checked){
 		        	var existe = verificarUnidadeJaExisteParaEssaRegiao(unidade);
 		        	console.log('existe : ',existe);
 		        	if(!existe){
-						regiaoCtrl.regiaoSelecionada.unidades.push(unidade._id);
+						regiaoCtrl.regiaoSelecionada.unidades.push(unidade);
 		        	}
+		        	notificarSucesso(unidade.nome+" adicionado(a) a região "+regiaoCtrl.regiaoSelecionada.nome+".");
 
 		        }else{
 		        	adicionada = false;
-		        	var indexOfItem = regiaoCtrl.regiaoSelecionada.unidades.indexOf(unidade._id);
-		        	regiaoCtrl.regiaoSelecionada.unidades.splice(indexOfItem, 1);
+		        	console.log('unidade remover : ',unidade);
+			        for(var i = 0; i < regiaoCtrl.regiaoSelecionada.unidades.length; i++){
+	        			if(regiaoCtrl.regiaoSelecionada.unidades[i]._id == unidade._id){
+	        				indiceRemover = i;
+	        				break;
+        				}
+        			}
+
+		        	//var indexOfItem = regiaoCtrl.regiaoSelecionada.unidades.indexOf(unidade);
+		        	regiaoCtrl.regiaoSelecionada.unidades.splice(indiceRemover, 1);
+		        	notificarSucesso("Unidade removida com sucesso.");
 		        }
-		        console.log(' regiao selecionada ',regiaoCtrl.regiaoSelecionada);
-		        regiaoService.salvarRegiao(regiaoCtrl.regiaoSelecionada, callback, callbackErro);
+		        //console.log(' regiao selecionada ',regiaoCtrl.regiaoSelecionada);
+		       // regiaoService.salvarRegiao(regiaoCtrl.regiaoSelecionada, callback, callbackErro);
 		    }
 	    };
 
@@ -373,6 +422,24 @@ apoioApp.controller('RegiaoController',
         	}
         	return jaExiste;
 	    }
+
+
+
+	    regiaoCtrl.atualizarRegiao = function(){
+	    	console.log(' vai atualizar regiao: ',regiaoCtrl.regiaoSelecionada);
+
+	    	var callback = function(regiaoSalvo){
+				notificarSucesso("A região "+regiaoCtrl.regiaoSelecionada.nome+" foi atualizada com sucesso.");	
+			};
+
+			var callbackErro = function(msg){
+				console.log(msg);
+				notificarErro(msg);
+			};
+
+
+			regiaoService.salvarRegiao(regiaoCtrl.regiaoSelecionada, callback, callbackErro);
+	    };
 		
 	  
 

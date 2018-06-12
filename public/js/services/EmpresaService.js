@@ -1,8 +1,8 @@
 
 apoioApp.factory('empresaService', function($http, $log){
 	
-	var urlPadrao = 'http://localhost:3000';
-	//var urlPadrao = 'http://ec2-35-160-247-116.us-west-2.compute.amazonaws.com:84';
+	//var urlPadrao = 'http://localhost:3000';
+	var urlPadrao = 'http://52.40.14.3:3000';
 	
 	var urlEmpresa = urlPadrao+'/api/empresa/v1/';
 
