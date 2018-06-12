@@ -2,7 +2,7 @@
 apoioApp.factory('empresaService', function($http, $log){
 	
 	//var urlPadrao = 'http://localhost:3000';
-	var urlPadrao = 'http://172.31.19.92:3000';
+	var urlPadrao = 'http://52.13.195.71:3000';
 	
 	var urlEmpresa = urlPadrao+'/api/empresa/v1/';
 
