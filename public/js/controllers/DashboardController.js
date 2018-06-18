@@ -1,13 +1,14 @@
 
 
 apoioApp.controller('DashboardController',
-	function ($scope, $rootScope, $http, $log, $sessionStorage, $timeout, $interval, moment, notify, dashboardService){
+	function ($scope, $rootScope, $http, $log, $sessionStorage, $timeout, $interval, moment, notify, dashboardService, apoioService){
 		var dashboardCtrl = this;
 		console.log("Dashboard Controller");
 
 		$scope.$emit("tituloPagina", "Dashboard");
 
 		var dono = $sessionStorage.dono;
+
 
 		$.cookie('animations','bounce');
 		
@@ -199,6 +200,21 @@ apoioApp.controller('DashboardController',
 		};
 
 
+
+		var recuperarApoios = function(){
+			console.log('recuperar recuperarApoios');
+			
+			var callbackApoios = function(pessoasApoios){ 
+				console.log('calback recuperarApoios : ',pessoasApoios);
+				
+				dashboardCtrl.apoios = pessoasApoios;
+			};
+
+			apoioService.listarPorEmpresa($sessionStorage.idEmpresa, callbackApoios);
+		};
+
+
+
 		var vibrarTela = function(){
 	 		$("body").removeClass($.cookie('animations'));
 	        var ani = $(this).attr('data-value');
@@ -214,6 +230,10 @@ apoioApp.controller('DashboardController',
 		$timeout(function(){montarContadoresChamados()}, 100);
 		//$timeout(function(){recuperarChamadosAbertos()}, 250);
 		$timeout(function(){recuperarResumoQtdChamadosAbertosDia()}, 400);
+
+		$timeout(function(){recuperarApoios()}, 700);
+
+		
 
 		$interval( function(){ montarContadoresChamados(); }, 60000);
 

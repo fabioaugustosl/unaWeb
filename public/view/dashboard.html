@@ -21,6 +21,8 @@
         </div>
     </div>
 
+    
+
     <div class="row mbl">
         <div class="col-lg-6">
 
@@ -95,6 +97,18 @@
             </div>
         </div>
     </div>
+
+
+    <div class="row mbl">
+        <div class="panel col-lg-1" style="background: green; color:#FFFFFF;">
+            <span style="font-size: 16px" >Apoios online: </span> 
+        </div>
+        <div class="panel col-lg-1" ng-repeat="apoio in dashboardCtrl.apoios">
+             <div class="progress progress-sm" style="height: 22px;">
+                <span style="font-size: 18px" >{{apoio.nome}}</span> 
+            </div>
+    </div>
+
 
 
 

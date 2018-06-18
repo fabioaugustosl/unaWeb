@@ -6,7 +6,7 @@ apoioApp.controller('PrincipalController',
 		$scope.tituloPagina = "PRINCIPAL";
 
 		$sessionStorage.dono = "una";
-		$sessionStorage.idEmpresa = "5953cb646725d1003b8e9881";
+		$sessionStorage.idEmpresa = "5b1d9edafd09c90010bd45a6";
 
 		$scope.$on('tituloPagina', function (event, args) {
 		 	$scope.tituloPagina = args;
