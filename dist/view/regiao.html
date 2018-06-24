@@ -1,0 +1,104 @@
+ <div class="page-content" ng-controller="RegiaoController as regiaoCtrl" ng-cloak>
+
+ 	<div class="row">
+        <div class="col-lg-12">
+
+  			 <div class="progress" ng-show="regiaoCtrl.processando">
+                  <div class="progress-bar progress-bar-striped active" role="progressbar"  aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
+                  </div>
+            </div>
+         
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="alert alert-success" style="margin: 10px;" role="alert" ng-show="regiaoCtrl.msg">{{regiaoCtrl.msg}}</div>
+
+        <div class="alert alert-danger" style="margin: 10px;" role="alert" ng-show="regiaoCtrl.msgErro">{{regiaoCtrl.msgErro}}</div>
+    </div>
+
+   
+
+    <div class="row panel-red" >
+        <div class="col-lg-6">
+            <div class="panel-heading" >Unidade: {{regiaoCtrl.empresaSelecionada.nomeEmpresa}}</div>
+             <!--select ng-options="empresa as empresa.nomeEmpresa for empresa in regiaoCtrl.empresas" 
+                        ng-model="regiaoCtrl.empresaSelecionada"  class="form-control border-input" ng-change="regiaoCtrl.selecionarEmpresa()"></select -->
+        </div>
+        <div class="col-lg-3">
+            <label>Regiões de atendimento : </label>
+            <select name="selectRegiao" id="selectRegiao" ng-model="regiaoCtrl.idRegiaoSelecionada" class="form-control border-input" ng-change="regiaoCtrl.selecionarRegiao()" style="width: 200px;">
+                <option value="{{reg._id}}" ng-repeat="reg in regiaoCtrl.regioes | orderBy : 'nome' : true">{{reg.nome}} ({{pred.qtdAndares}} Andares)</option>
+            </select>
+        </div>
+        <div class="col-lg-3">
+            <a href="#" data-toggle="tab" style="margin-left:10px;" ng-click="regiaoCtrl.adicionarRegiao()"><span class="fa fa-plus"></span>&nbsp;Nova Região</a>
+
+            <a href="#" data-toggle="tab" style="margin-left:10px;" ng-show="regiaoCtrl.idRegiaoSelecionada"  ng-confirm-click="Tem certeza que deseja excluir a região?" confirmed-click="regiaoCtrl.removerRegiao()" ><span class="fa fa-ban"></span>&nbsp;Remover Região</a>
+
+        </div>
+    </div>
+
+
+    <div class="row" ng-show="regiaoCtrl.regiaoSalvar" style="padding: 5px;">
+        <div class="col-lg-12">
+            <label>Nome:</label>
+            <input type="text" name="inputNome" id="inputNome" class="form-control border-input" ng-model="regiaoCtrl.regiaoSalvar.nome" style="margin-bottom: 5px;" md-autofocus>
+        </div>
+        <div class="col-lg-12">            
+            <button class="btn btn-primary" ng-click="regiaoCtrl.salvarRegiao()">Salvar</button>
+            <button class="btn btn-primary" ng-click="regiaoCtrl.cancelarSalvarRegiao()">Cancelar</button>
+        </div>
+    </div>
+
+  
+    <div class="row" ng-show="regiaoCtrl.regiaoSelecionada" >
+        <div class="col-lg-12">
+
+            <div class="panel panel-red" >
+                <div class="panel-heading" >Região selecionada: {{regiaoCtrl.regiaoSelecionada.nome}} </div>
+                <div class="panel-heading">Apoio que atendem essa região</div>
+
+                <div class="panel-body">
+                    
+                    <div ng-repeat="apoio in regiaoCtrl.apoios | orderBy : nome" style="width: 150px">
+                        <input type="checkbox"  value="{{apoio._id}}" ng-click="regiaoCtrl.atualizarApoioSelecionada(apoio)" ng-model="apoio.checked" id="CKB_{{apoio.id}}" />
+
+                        <label for="CKB_{{apoio.id}}">{{apoio.nome}}</label>
+                    </div>    
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row" ng-show="regiaoCtrl.regiaoSelecionada">
+        <div class="col-lg-12">
+            <div class="panel panel-red" >
+                <div class="panel-heading" >Região selecionada: {{regiaoCtrl.regiaoSelecionada.nome}} </div>
+                <div class="panel-heading">Unidades/Salas que fazem parte desta região 
+                <div >
+                    Filtro: 
+                    <select name="selectPredio" id="selectPredio" ng-model="regiaoCtrl.idPredioSelecionado" class="form-control border-input" style="width: 200px;">
+                        <option value="{{predio._id}}" ng-repeat="predio in regiaoCtrl.agrupamentos">{{predio.nome}}</option>
+                    </select>
+                </div>
+              </div>
+
+                <div class="panel-body">
+                    <div ng-repeat="unidade in regiaoCtrl.unidades | orderBy : ['idAgrupamento','andar','nome'] | filter : {'idAgrupamento':regiaoCtrl.idPredioSelecionado}" style="width: 200px;float:left;">
+                        <span>
+                            <input type="checkbox"  value="{{unidade._id}}" ng-click="regiaoCtrl.atualizarUnidadeSelecionada(unidade)" ng-model="unidade.checked" id="CKB_{{unidade.id}}" name="CKB_{{unidade.id}}" />
+
+                            <label for="CKB_{{unidade.id}}">{{unidade.nome}}  - Andar: {{unidade.andar}}</label>
+                        </span>
+                    </div>  
+                </div>
+            </div>
+        </div>
+
+         <div class="col-lg-12">            
+            <button class="btn btn-primary" ng-click="regiaoCtrl.atualizarRegiao()">Salvar</button>
+        </div>
+
+    </div>
+</div>

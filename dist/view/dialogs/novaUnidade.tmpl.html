@@ -1,0 +1,38 @@
+<md-dialog aria-label="unidadeSalvar">
+  <form ng-cloak>
+    <md-toolbar class="topoDialog">
+      <div class="md-toolbar-tools">
+        <h2>Nova Unidade</h2>
+        <span flex></span>
+
+      </div>
+    </md-toolbar>
+
+    <md-dialog-content  style="min-width:400px; max-width:800px;max-height:810px; ">
+      <div class="md-dialog-content"  >
+        
+        <div class="alert alert-danger" style="margin: 10px;" role="alert" ng-show="mensagemErro">{{mensagemErro}}</div>
+
+        <label>Nome:</label>
+        <input type="text" name="inputNomeUnidade" id="inputNomeUnidade" class="form-control border-input" ng-model="unidadeSalvar.nome" md-autofocus>
+    
+        <label>Qual andar?</label>
+         <select name="selectAndar" id="selectAndar" class="form-control border-input" ng-model="unidadeSalvar.andar"  style="width: 100%">
+                <option value="">Selecione ...</option> 
+                <option ng-repeat="a in andares" value="{{a}}">{{a}}</option>
+         </select>
+      </div>
+    </md-dialog-content>
+
+    <md-dialog-actions layout="row">
+    <md-button  ng-click="cancelar()">
+          Cancelar
+      </md-button>
+      <span flex></span>
+      <md-button ng-click="salvar()">
+          Salvar
+      </md-button>
+      
+    </md-dialog-actions>
+  </form>
+</md-dialog>

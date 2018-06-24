@@ -1,0 +1,142 @@
+
+
+<div id="contentPrincipal" class="content" ng-controller="DashboardController as dashboardCtrl" >
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-3 col-sm-6" ng-repeat="item in resumeData">
+                <div class="card">
+                    <div class="content">
+                        <div class="row">
+                            <div class="col-xs-5">
+                                <div  class="icon-big  text-center {{item.classImgStatus}}">
+                                    <i class="{{item.classImg}}"></i>
+                                </div>
+                            </div>
+                            <div class="col-xs-7">
+                                <div class="numbers">
+                                    <p>{{item.name}}</p>
+                                    {{item.value}}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="footer">
+                            <hr />
+                            <div class="stats">
+                                <i  class="{{item.classIcon}}"></i> {{item.infoUpdate}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+
+            <div class="col-md-12" ng-show="dashboardCtrl.atualizacaoGraficoDistribuicaoDia">
+                <div class="card">
+                    <div class="header">
+                        <h4 class="title">Distribuição de ingressos por dia</h4>
+                        <p class="category">Performance nos últimos 30 dias</p>
+                    </div>
+                    <div class="content">
+                        <canvas id="graficoDistribuicaoDiaNovo" width="400" height="200"></canvas>
+
+                        <div class="footer">
+                            <hr>
+                            <div class="stats">
+                                <i class="ti-reload"></i> {{dashboardCtrl.atualizacaoGraficoDistribuicaoDia}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="row" ng-show="dashboardCtrl.atualizacaoGraficoEntradaEvento">
+
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="header">
+                        <h4 class="title">Fluxo de entrada de pessoas por hora</h4>
+                        <p class="category">Performance nas últimas horas</p>
+                    </div>
+                    <div class="content">
+                         <canvas id="graficoEntradaPessoasNovo" width="400" height="200"></canvas>
+                        <div class="footer">
+                            <hr>
+                            <div class="stats">
+                                <i class="ti-reload"></i> {{dashboardCtrl.atualizacaoGraficoEntradaEvento}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            
+            <div class="col-md-4" ng-show="dashboardCtrl.atualizacaoGraficoDistrubuicaoPorCategoria">
+                <div class="card ">
+                    <div class="header">
+                        <h4 class="title">Distribuição de ingressos por categoria</h4>
+                        <p class="category">Total de ingressos distribuidos por cada categoria</p>
+                    </div>
+                    <div class="content">
+
+                        <canvas id="graficoDistribuicaoPorCategoriaNovo" width="300" height="300"></canvas>
+
+                        <div class="footer">
+                            <hr>
+                            <div class="stats">
+                                <i class="ti-check"></i> {{dashboardCtrl.atualizacaoGraficoDistrubuicaoPorCategoria}} 
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4" ng-show="dashboardCtrl.atualizacaoGraficoEntradaPorCategoria">
+                <div class="card">
+                    <div class="header">
+                        <h4 class="title">Entrada de associados </h4>
+                        <p class="category">Veja a relação de entradas de associados e acompanhantes por categoria</p>
+                    </div>
+                    <div class="content">
+                        <canvas id="graficoEntradaPorCategoria" width="300" height="300"></canvas>
+
+                        <div class="footer">
+                            <hr>
+                            <div class="stats">
+                                <i class="ti-timer"></i> {{dashboardCtrl.atualizacaoGraficoEntradaPorCategoria}} 
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4" ng-show="dashboardCtrl.atualizacaoGraficoIngressoPorCategoria">
+                <div class="card">
+                    <div class="header">
+                        <h4 class="title">Ingressos por categoria</h4>
+                        <p class="category">Veja a relação de ingressos por tipo de categoria</p>
+                    </div>
+                    <div class="content">
+                        <canvas id="graficoIngressosPorCategoria" width="300" height="300"></canvas>
+
+                        <div class="footer">
+                            <hr>
+                            <div class="stats">
+                                <i class="ti-timer"></i> {{dashboardCtrl.atualizacaoGraficoIngressoPorCategoria}} 
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        
+    </div>
+</div>
+

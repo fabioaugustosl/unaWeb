@@ -1,0 +1,118 @@
+ <div class="page-content" ng-controller="UnidadeController as unidadeCtrl">
+
+ 	<div class="row">
+        <div class="col-lg-12">
+  			 <div class="progress" ng-show="unidadeCtrl.processando">
+                  <div class="progress-bar progress-bar-striped active" role="progressbar"  aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
+                  </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="alert alert-success" style="margin: 10px;" role="alert" ng-show="unidadeCtrl.msg">{{unidadeCtrl.msg}}</div>
+
+        <div class="alert alert-danger" style="margin: 10px;" role="alert" ng-show="unidadeCtrl.msgErro">{{unidadeCtrl.msgErro}}</div>
+    </div>
+
+
+    <div class="row" style="margin-bottom: 10px;padding-left: 50px; padding-right:50px;" ng-show="unidadeCtrl.empresas.length > 1">
+        <label for="selectEmpresa" class="control-label">Empresa: *</label>
+        <select name="selectEmpresa" ng-model="unidadeCtrl.empresaSelecionada" class="form-control border-input" ng-change="unidadeCtrl.trocarEmpresa()">
+            <option value="{{emp._id}}" ng-repeat="emp in unidadeCtrl.empresas">{{emp.nomeEmpresa}}</option>
+        </select>
+    </div>
+
+
+    <div class="row panel-red" >
+        <div class="col-lg-6">
+            <div class="panel-heading" >Unidade: {{unidadeCtrl.empresaSelecionada.nomeEmpresa}}</div>
+        </div>
+        <div class="col-lg-4">
+            <label>Prédios: </label>
+            <select name="selectPredio" id="selectPredio" ng-model="unidadeCtrl.idAgrupamentoSelecionado" class="form-control border-input" ng-change="unidadeCtrl.selecionarAgrupamento()" style="width: 200px;">
+                <option value="{{pred._id}}" ng-repeat="pred in unidadeCtrl.agrupamentos">{{pred.nome}} ({{pred.qtdAndares}} Andares)</option>
+            </select>
+        </div>
+        <div class="col-lg-2">
+            <a href="#" data-toggle="tab" style="margin-left:10px;" ng-click="unidadeCtrl.adicionarAgrupamento()"><span class="fa fa-plus"></span>&nbsp;Novo prédio</a>
+
+        </div>
+    </div>
+
+
+     <div  class="row" ng-show="unidadeCtrl.modoSalvarAgrup" style="padding: 5px;" >
+        <div class="col-lg-6">
+            <label>Nome: *</label>
+            <input type="text" name="inputNomeAgrup" id="inputNomeAgrup" class="form-control border-input" ng-model="unidadeCtrl.agrupSalvar.nome" md-autofocus>
+        </div>
+        <div class="col-lg-6">
+            <label>Quantos andares?</label>
+            <input style="margin-bottom: 5px;" type="number" name="inputAndarAgrup" id="inputAndarAgrup" class="form-control border-input" ng-model="unidadeCtrl.agrupSalvar.qtdAndares" >
+        </div>
+        <div class="col-lg-12">
+             <button class="btn btn-primary" ng-click="unidadeCtrl.salvarAgrupamento()">Salvar</button>
+             <button class="btn btn-primary" ng-click="unidadeCtrl.cancelarSalvarAgrup()">Cancelar</button>
+        </div>
+    </div>
+
+
+    <div class="row" ng-show="unidadeCtrl.empresaSelecionada" style="padding-top: 5px;">
+        <div class="col-lg-12" ng-show="unidadeCtrl.empresaSelecionada">
+            <div class="panel panel-red">
+                <div class="panel-heading" ng-show="unidadeCtrl.agrupamentoSelecionado">Prédio selecionado: {{unidadeCtrl.agrupamentoSelecionado.nome}} </div>
+                <div class="panel-heading">Unidades de atendimento
+                    <a href="#" data-toggle="tab" style="margin-left:10px;" ng-click="unidadeCtrl.adicionarUnidade()"><span class="fa fa-plus"></span>&nbsp;Nova unidade</a>
+                    <div ng-show="unidadeCtrl.modoSalvarUnidade" style="padding: 5px;">
+                        <label>Nome:</label>
+                        <input type="text" name="inputNomeUnidade" id="inputNomeUnidade" class="form-control border-input" ng-model="unidadeCtrl.unidadeSalvar.nome" md-autofocus>
+                    
+                        <label>Qual andar?</label>
+                         <select name="selectAndar" id="selectAndar" class="form-control border-input" ng-model="unidadeCtrl.unidadeSalvar.andar"  style="width: 100%; margin-bottom: 5px;">
+                                <option value="">Selecione ...</option> 
+                                <option ng-repeat="a in unidadeCtrl.andares" value="{{a}}">{{a}}</option>
+                         </select>
+                         <button class="btn btn-primary" ng-click="unidadeCtrl.salvarUnidade()">Salvar</button>
+                         <button class="btn btn-primary" ng-click="unidadeCtrl.cancelarSalvarUnidade()">Cancelar</button>
+                    </div>
+                </div>
+                
+                <div class="panel-body">
+                    <table class="table table-hover table-striped">
+                       
+                       <thead>
+                            <tr>
+                                <th></th>
+                                <th>Nome</th>
+                                <th>Andar</th>
+                                <th>Código</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+
+                        <tr class="tbl-item" ng-repeat="unid in unidadeCtrl.unidades | orderBy : ['andar','nome']"><!--<img/>-->
+                            <td class="img" style="width: 40px;">
+                                <img ng-src="{{unid.qrcodeImg}}" title="Código de identificação da unidade" style="max-width: 25px" />  
+                            </td>
+                            <td >
+                                <p>{{unid.nome}}</p>
+                            </td>
+                            <td>
+                                <p>{{unid.andar}}</p>
+                            </td>
+                            <td>
+                                <p>{{unid.codigo}}</p>
+                            </td>
+                            <td>
+                                 <button type="button" class="btn" ng-confirm-click="Tem certeza que deseja excluir a sala {{unid.nome}}?" confirmed-click="unidadeCtrl.removerUnidade(unid._id)"><i class="fa fa-eraser fa-fw fa_custom"></i></button>
+                            </td>
+                        </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+
+    </div>
+</div>
