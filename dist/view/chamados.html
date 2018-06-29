@@ -177,6 +177,16 @@
 
                     <div class="row">
                         <div class="col-lg-8 celulaComFundo celulaComBorda">
+                            <label class="negrito">Avaliação do professor: </label>
+                        </div>
+                        <div class="col-lg-4 celulaComFundo celulaComBorda">
+                            <label ng-show="chamadoCtrl.chamadoSelecionado.avaliacaoAtendimento">{{chamadoCtrl.chamadoSelecionado.avaliacaoAtendimento}}</label>
+                             <label ng-hide="chamadoCtrl.chamadoSelecionado.avaliacaoAtendimento">NA</label>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-lg-8 celulaComFundo celulaComBorda">
                             <label class="negrito">Tempo de atendimento: </label>
                         </div>
                         <div class="col-lg-4 celulaComFundo celulaComBorda">
@@ -194,6 +204,14 @@
                         </div>
                     </div>
 
+                     <div class="row">
+                        <div class="col-lg-8 celulaComFundo celulaComBorda">
+                            <label class="negrito">Comentário apoio: </label>
+                        </div>
+                        <div class="col-lg-4 celulaComFundo celulaComBorda">
+                            <label>{{chamadoCtrl.chamadoSelecionado.comentarioEncerramento}}</label>
+                        </div>
+                    </div>
 
                 </div>
             </div>

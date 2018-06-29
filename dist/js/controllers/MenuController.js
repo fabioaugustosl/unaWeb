@@ -16,6 +16,8 @@ apoioApp.controller('MenuController',
 			$scope.classApoio = "";
 			$scope.classAutorizado = "";
 			$scope.classChamados = "";
+			$scope.classRelatorios = "";
+			$scope.classGraficos = "";
 
 			if(menuAtivo == "dashboard"){
 				$scope.classDash = "active";
@@ -33,6 +35,10 @@ apoioApp.controller('MenuController',
 				$scope.classChamados = "active";
 			} else if(menuAtivo == "autorizado"){
 				$scope.classAutorizado = "active";
+			} else if(menuAtivo == "relatorios"){
+				$scope.classRelatorios = "active";
+			} else if(menuAtivo == "graficos"){
+				$scope.classGraficos = "active";
 			}
 
 		}
@@ -97,6 +103,11 @@ apoioApp.controller('MenuController',
 			$location.url('/chamados');
 		};
 
+		$scope.irParaRelatorios = function(){
+			resetarMenuSelecionado("relatorios");
+			$location.replace();
+			$location.url('/relatorios');
+		};
 
 
 		resetarMenuSelecionado("dashboard");

@@ -118,9 +118,7 @@ apoioApp.controller('DashboardController',
 
 
 
-
 		var recuperarResumoQtdChamadosAbertosDia = function(){
-			
 			var callback = function(dados){ 
 
 				var rotulos = [];
@@ -151,13 +149,10 @@ apoioApp.controller('DashboardController',
 			        }]
 			    };
 
-
 		        var myLineChart = new Chart($('#graficoChamadosAbertosPorDia'), {
 				    type: 'bar',
-				    data: data
-				    
+				    data: data 
 				});
-
 			};
 
 			dashboardService.resumoQtdChamdosPorDia(dono, callback);
@@ -184,14 +179,12 @@ apoioApp.controller('DashboardController',
 						var idUltimoCallback = chamados[(totalChamadosCallback -1)];
 					}
 					
-
 					if((totalChamadosCallback != totalChamadosTela)
 						|| ((!idUltimoTela && !idUltimoCallback) || (idUltimoTela != idUltimoCallback))){
 						notify({ message: "Novo chamado aberto!", 
 							classes: 'alert-success', position: 'right', duration: 5000 });
 						vibrarTela();
 					}
-				
 				}
 				dashboardCtrl.chamadosAbertos = chamados;
 			};

@@ -1,6 +1,6 @@
 
 var apoioApp = angular.module('apoioApp', ['ngRoute', 'ngStorage', 'ngMaterial', 'cgNotify','angular-md5', 'angularMoment', 'ngMask'])
-		.config(function($routeProvider, $locationProvider, $logProvider, $qProvider) {
+		.config(function($routeProvider, $locationProvider, $logProvider, $qProvider, $compileProvider) {
 			$routeProvider.when('/index', {template:'/view/dashboard.html', controller: 'DashboardController'})
 						  .when('/dashboard', {templateUrl:'/view/dashboard.html', controller: 'DashboardController'})
 						  .when('/apoio', {templateUrl:'/view/apoio.html', controller: 'ApoioController'})
@@ -11,10 +11,13 @@ var apoioApp = angular.module('apoioApp', ['ngRoute', 'ngStorage', 'ngMaterial',
 						  .when('/grafico', {templateUrl:'/view/grafico.html', controller: 'GraficoController'})
 						  .when('/autorizado', {templateUrl:'/view/autorizado.html', controller: 'SolicitanteAutorizadoController'})
 						  .when('/chamados', {templateUrl:'/view/chamados.html', controller: 'ChamadosController'})
+						  .when('/grafico', {templateUrl:'/view/graficos.html', controller: 'GraficoController'})
+						  .when('/relatorios', {templateUrl:'/view/relatorio.html', controller: 'RelatorioController'})
 						  .otherwise({redirectTo:'/index'});
 
 			$locationProvider.html5Mode(true);
-
+			
+			$compileProvider.aHrefSanitizationWhitelist(/^\s*(|blob|):/);
 			//$qProvider.errorOnUnhandledRejections(false);
 			
 			$logProvider.debugEnabled(true);

@@ -166,7 +166,7 @@
 	                </li>
 
                     <li ng-class="classGraficos">
-                        <a  href="#" ng-click="irParaGraficos()"><i class="fa fa-bar-chart-o fa-fw">
+                        <a  href="#" ng-click="irParaGrafico()"><i class="fa fa-bar-chart-o fa-fw">
                             <div class="icon-bg bg-orange"></div>
                             </i><span class="menu-title">Gráficos</span>
                         </a>
@@ -218,6 +218,13 @@
                         <a href="#" ng-click="irParaChamados()"><i class="fa fa-bell-o fa-fw">
                             <div class="icon-bg bg-violet"></div>
                            </i><span class="menu-title">Chamados</span>
+                        </a>
+                    </li>
+
+                    <li ng-class="classRelatorio">
+                        <a href="#" ng-click="irParaRelatorios()"><i class="fa fa-book fa-fw">
+                            <div class="icon-bg bg-violet"></div>
+                           </i><span class="menu-title">Relatórios</span>
                         </a>
                     </li>
 
@@ -406,6 +413,7 @@
        <script src="/js/services/ChamadosService.js"></script>
        <script src="/js/services/DashboardService.js"></script>
        <script src="/js/services/EmpresaService.js"></script>
+       <script src="/js/services/GraficoService.js"></script>
        <script src="/js/services/LoginService.js"></script>
        <script src="/js/services/ParametroService.js"></script>
        <script src="/js/services/PessoaService.js"></script>
@@ -420,9 +428,11 @@
        <script src="/js/controllers/DashboardController.js"></script>
        <script src="/js/controllers/EmpresaController.js"></script>
        <script src="/js/controllers/EventoCadastroController.js"></script>
+       <script src="/js/controllers/GraficoController.js"></script>
        <script src="/js/controllers/MenuController.js"></script>
        <script src="/js/controllers/PrincipalController.js"></script>
        <script src="/js/controllers/RegiaoController.js"></script>
+       <script src="/js/controllers/RelatorioController.js"></script>
        <script src="/js/controllers/SolicitanteAutorizadoController.js"></script>
        <script src="/js/controllers/UnidadeController.js"></script>
        <!-- endinject -->
