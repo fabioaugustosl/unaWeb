@@ -1,0 +1,17 @@
+ <div class="page-content" ng-controller="RelatorioController as relatorioCtrl" ng-cloak>
+
+ 
+
+    <div class="row" style="padding: 5px;">
+        <div class="col-lg-12">
+            <label>Exportar relatório de chamados</label>
+            
+        </div>
+        <div class="col-lg-12">            
+            <button class="btn btn-primary" ng-click="relatorioCtrl.exportarChamados()">Exportar</button>
+           <a ng-href="{{ relatorioCtrl.link }}" ng-show="relatorioCtrl.link" download="chamdo.xls">download</a>
+        </div>
+    </div>
+
+
+</div>

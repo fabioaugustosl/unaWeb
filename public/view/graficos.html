@@ -1,0 +1,42 @@
+<div class="page-content" ng-controller="GraficoController as graficoCtrl" >
+
+
+
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="panel">
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h4 class="mbs">Categorias dos chamados</h4>
+                            <canvas id="graficoCategoriasDosChamados" width="400" height="400"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-6">
+            <div class="panel" ng-show="graficoCtrl.categorias">
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h4 class="mbs">Itens de Atendimento dos chamados</h4>
+            
+                            <label>Categoria : </label>
+                            <select name="selectCategoria" id="selectCategoria" ng-model="graficoCtrl.idCategoria" class="form-control border-input" ng-change="graficoCtrl.gerarGraficoItem()" >
+                                <option value="{{cat.id}}" ng-repeat="cat in graficoCtrl.categorias">{{cat.nome}}</option>
+                            </select>
+
+                            <canvas id="graficoItensAtendimentosDosChamados" width="350" height="350"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+
+</div>
