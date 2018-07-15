@@ -1,8 +1,9 @@
 
 apoioApp.factory('apoioService', function($http, $log){
 	
-	//var urlPadrao = 'http://localhost:3000'; //'http://ec2-52-11-115-221.us-west-2.compute.amazonaws.com:81'
-	var urlPadrao = 'http://52.13.195.71:3000';
+	//var urlPadrao = URL_SERVICOS;
+	var urlPadrao = 'http://localhost:3000'; //'http://ec2-52-11-115-221.us-west-2.compute.amazonaws.com:81'
+	//var urlPadrao = 'http://52.13.195.71:3000';
 
 	var urlApoio = urlPadrao+'/api/apoio/v1/';
 	

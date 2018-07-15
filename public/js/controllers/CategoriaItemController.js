@@ -4,7 +4,7 @@ apoioApp.controller('CategoriaItemController',
 		
 		var categoriaCtrl = this;
 
-		$scope.$emit("tituloPagina", "Categorias de atendimento");
+		$scope.$emit("tituloPagina", "Recursos de atendimento");
 		var dono = $sessionStorage.dono;
 		var idEmpresa = $sessionStorage.idEmpresa;
 
@@ -74,8 +74,8 @@ apoioApp.controller('CategoriaItemController',
 	
 		categoriaCtrl.adicionarItem = function() {
 			if(!categoriaCtrl.categoriaSelecionado){
-				categoriaCtrl.msgErro = "É necessário selecionar uma categoria";
-				notificarErro("É necessário selecionar uma categoria");
+				categoriaCtrl.msgErro = "É necessário selecionar um recurso";
+				notificarErro("É necessário selecionar um recurso");
 	    	} else {
 				categoriaCtrl.msgErro = "";
 				//console.log('categ selecionado: ',categoriaCtrl.categoriaSelecionado);
@@ -242,7 +242,7 @@ apoioApp.controller('CategoriaItemController',
 	    		var indexOfItem = categoriaCtrl.categorias.indexOf(categExcluir);
 	        	categoriaCtrl.categorias.splice(indexOfItem, 1);
 
-				categoriaCtrl.msg = "A categoria foi removida com sucesso.";
+				categoriaCtrl.msg = "O recurso foi removida com sucesso.";
 				categoriaCtrl.msgErro = '';
 				notificarSucesso(categoriaCtrl.msg);
 
@@ -250,11 +250,10 @@ apoioApp.controller('CategoriaItemController',
 
 			var callbackErro = function(msg){
 				categoriaCtrl.msg = "";
-				categoriaCtrl.msgErro = 'Ocorreu um erro ao remover a categoria.';
+				categoriaCtrl.msgErro = 'Ocorreu um erro ao remover o recurso.';
 				notificarErro(categoriaCtrl.msgErro);
 			};
-
-		   
+	   
 
 		    categoriaItemService.removerCategoria(idCateg, callback, callbackErro);
 		    
@@ -319,8 +318,8 @@ apoioApp.controller('CategoriaItemController',
 	  	categoriaCtrl.salvarCategoria = function(){
 	  		console.log(categoriaCtrl.categSalvar.nome);
 	  		if(!categoriaCtrl.categSalvar.nome){
-				categoriaCtrl.msgErro = "É necessário informar o nome da categoria";
-				notificarErro("É necessário informar o nome da categoria");
+				categoriaCtrl.msgErro = "É necessário informar o nome do recurso";
+				notificarErro("É necessário informar o nome do recurso");
 	    	} else {
 	    		// se tiver apenas uma empresa / unidade ela ja eh setada como default daquela categoria
 	    		if(categoriaCtrl.empresaSelecionada ){
@@ -343,7 +342,7 @@ apoioApp.controller('CategoriaItemController',
 
 
 		var callbackSucessoSalvarCateg = function(categSalva) {
-			var msg = 'Categoria foi salva com sucesso. ';
+			var msg = 'Recurso salvo com sucesso. ';
 			//if(categoriaCtrl.catogorias){
 			//	categoriaCtrl.catogorias = [];
 			//}

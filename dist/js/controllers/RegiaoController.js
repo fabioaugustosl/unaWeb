@@ -48,7 +48,6 @@ apoioApp.controller('RegiaoController',
 
 				regiaoCtrl.selecionarEmpresa();
 			}
-
 		};
 
 		
@@ -74,8 +73,6 @@ apoioApp.controller('RegiaoController',
 	    };
 
 
-
-		
 		/*Parte de REGIAO */
 
 		regiaoCtrl.selecionarRegiao = function(){
@@ -95,7 +92,7 @@ apoioApp.controller('RegiaoController',
 			// percorrer a lista de apoios e checar os que já estão marcados na regiao
 			if(regiaoCtrl.apoios){	
 				// limpar todos os apoios checkados
-				for (var k = 0; k < regiaoCtrl.apoios.length; k++) {
+				for (let k = 0; k < regiaoCtrl.apoios.length; k++) {
 					regiaoCtrl.apoios[k].checked = false;
 				}
 
@@ -114,10 +111,10 @@ apoioApp.controller('RegiaoController',
 
 			// percorrer a lista de unidade e checar os que já estão marcados na regiao
 			if(regiaoCtrl.unidades){
-
-				for (var i = 0; i < regiaoCtrl.unidades.length; i++) {
-					regiaoCtrl.unidades[k].checked = false;
+				for (let y = 0; y < regiaoCtrl.unidades.length; y++) {
+					regiaoCtrl.unidades[y].checked = false;
 				}	
+				console.log('regiaoCtrl.regiaoSelecionada.unidades', regiaoCtrl.regiaoSelecionada.unidades);
 
 				for (var k = 0; k < regiaoCtrl.unidades.length; k++) {
 
@@ -131,7 +128,7 @@ apoioApp.controller('RegiaoController',
 					}	
 				}
 				console.log('unidades: ',regiaoCtrl.unidades);
-			}
+			} 
 
 			regiaoCtrl.processando  = false;
 		};

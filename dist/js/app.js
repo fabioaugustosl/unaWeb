@@ -41,7 +41,6 @@ var apoioApp = angular.module('apoioApp', ['ngRoute', 'ngStorage', 'ngMaterial',
 			}
 		);
 
-
 apoioApp.directive('ngConfirmClick', [
     function(){
         return {

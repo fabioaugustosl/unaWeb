@@ -9,6 +9,8 @@ apoioApp.controller('DashboardController',
 
 		var dono = $sessionStorage.dono;
 
+		dashboardCtrl.resumoChamadosOnline = {};
+		dashboardCtrl.atendentesOcupados = {};
 
 		$.cookie('animations','bounce');
 		
@@ -109,6 +111,22 @@ apoioApp.controller('DashboardController',
 						valor : fechados,
 						infoUpdate : moment().format('D MMMM YYYY, hh:mm'),
 					});
+
+
+					// se abriu um novo mandar msg na tela
+					if(dashboardCtrl.resumoChamadosOnline.abertos < abertos){
+						notify({ message: "Novo chamado aberto!", 
+							classes: 'alert-success', position: 'right', duration: 5000 });
+						vibrarTela();
+					}
+
+					// novo resumo.. dependendo pode comentar esses trems de cima
+					dashboardCtrl.resumoChamadosOnline.abertos = abertos;
+					dashboardCtrl.resumoChamadosOnline.atendimento = caminho + andamento;
+					dashboardCtrl.resumoChamadosOnline.aguardando = abertos - (fechados + caminho+ andamento);
+					dashboardCtrl.resumoChamadosOnline.fechados = fechados;
+
+					
 				}
 			};
 
@@ -159,15 +177,29 @@ apoioApp.controller('DashboardController',
 		};
 
 
-		
-
 		var recuperarChamadosAbertos = function(){
 			console.log('recuperar chamados abertos');
 			
 			var callback = function(chamados){ 
 				console.log('calback chamados abertos : ',chamados);
+
+				if(chamados && chamados.length > 0){
+
+					//if((!dashboardCtrl.chamadosAbertos || dashboardCtrl.chamadosAbertos.length == chamados.length){
+						dashboardCtrl.atendentesOcupados = [];
+						for(var i = 0; i<chamados.length; i++){
+							var cham = chamados[i];
+							let apoioOcupado = {};
+							apoioOcupado.nome = cham.nomeAtendente;
+							apoioOcupado.sala = cham.nomeUnidade+" / " +cham.nomeAgrupamento;
+							dashboardCtrl.atendentesOcupados.push(apoioOcupado);
+						}
+					//}
+				}
+
+				
 				// verifica se tem chamado novo
-				var totalChamadosTela = 0; 
+				/*var totalChamadosTela = 0; 
 				var totalChamadosCallback = 0;
 
 				if(dashboardCtrl.chamadosAbertos) { totalChamadosTela = dashboardCtrl.chamadosAbertos.length; };
@@ -181,11 +213,12 @@ apoioApp.controller('DashboardController',
 					
 					if((totalChamadosCallback != totalChamadosTela)
 						|| ((!idUltimoTela && !idUltimoCallback) || (idUltimoTela != idUltimoCallback))){
-						notify({ message: "Novo chamado aberto!", 
-							classes: 'alert-success', position: 'right', duration: 5000 });
-						vibrarTela();
+						
+						//notify({ message: "Novo chamado aberto!", 
+						//	classes: 'alert-success', position: 'right', duration: 5000 });
+						//vibrarTela();
 					}
-				}
+				}*/
 				dashboardCtrl.chamadosAbertos = chamados;
 			};
 
@@ -194,7 +227,7 @@ apoioApp.controller('DashboardController',
 
 
 
-		var recuperarApoios = function(){
+		/*var recuperarApoios = function(){
 			console.log('recuperar recuperarApoios');
 			
 			var callbackApoios = function(pessoasApoios){ 
@@ -204,7 +237,7 @@ apoioApp.controller('DashboardController',
 			};
 
 			apoioService.listarPorEmpresa($sessionStorage.idEmpresa, callbackApoios);
-		};
+		};*/
 
 
 
@@ -224,7 +257,7 @@ apoioApp.controller('DashboardController',
 		//$timeout(function(){recuperarChamadosAbertos()}, 250);
 		$timeout(function(){recuperarResumoQtdChamadosAbertosDia()}, 400);
 
-		$timeout(function(){recuperarApoios()}, 700);
+		//$timeout(function(){recuperarApoios()}, 700);
 
 		
 

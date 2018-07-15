@@ -1,5 +1,33 @@
 <div class="page-content" ng-controller="GraficoController as graficoCtrl" >
 
+     <div class="row">
+        <div class="col-lg-6 col-md-6 col-lg-12">
+            <div class="panel">
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h4 class="mbs">Abertura de chamados por solicitantes</h4>
+                            <canvas id="graficoChamadosPorSolicitante" width="300" height="300"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-6 col-md-6 col-lg-12">
+            <div class="panel" >
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h4 class="mbs">Atendimentos de chamados por apoio</h4>
+                            <canvas id="graficoChamadosPorAtendente" width="300" height="300"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
 
 
     <div class="row">
@@ -9,7 +37,7 @@
                     <div class="row">
                         <div class="col-md-12">
                             <h4 class="mbs">Categorias dos chamados</h4>
-                            <canvas id="graficoCategoriasDosChamados" width="400" height="400"></canvas>
+                            <canvas id="graficoCategoriasDosChamados" width="300" height="300"></canvas>
                         </div>
                     </div>
                 </div>
@@ -28,15 +56,15 @@
                                 <option value="{{cat.id}}" ng-repeat="cat in graficoCtrl.categorias">{{cat.nome}}</option>
                             </select>
 
-                            <canvas id="graficoItensAtendimentosDosChamados" width="350" height="350"></canvas>
+                            <canvas id="graficoItensAtendimentosDosChamados" width="300" height="300"></canvas>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
 
-
     </div>
 
 
+   
 </div>

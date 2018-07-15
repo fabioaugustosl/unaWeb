@@ -1,9 +1,22 @@
 <div class="page-content" ng-controller="DashboardController as dashboardCtrl" >
 
-    <div id="tab-general">
-        <div id="sum_box" class="row mbl">
+
+    <div class="row" ng-show="dashboardCtrl.atendentesOcupados && dashboardCtrl.atendentesOcupados.length > 0" style="background: #000000; width: 100%; color:#FFFFFF;">
+        <div class="col-lg-2 col-md-2 col-sm-4" ng-repeat="apoio in dashboardCtrl.atendentesOcupados">
             
-            <div class="col-sm-6 col-md-3" ng-show="dashboardCtrl.resumoChamados" ng-repeat="item in dashboardCtrl.resumoChamados">
+            <div class="card" style="width: 100%; border: 1px solid #FFFFFF; padding:5px;">
+              <div class="card-body">
+                <h5 class="card-title">{{apoio.nome}}</h5>
+                <p class="card-text" style="font-size: 0.8em">{{apoio.sala}}</p>
+              </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div id="tab-general">
+        <div id="sum_box" class="row mbl"> 
+            <div class="col-sm-6 col-md-3 " ng-show="dashboardCtrl.resumoChamados" ng-repeat="item in dashboardCtrl.resumoChamados">
                
                 <div class="panel profit db mbm">
                     <div class="panel-body">
@@ -13,99 +26,121 @@
                         <h4 class="value">
                             <span >{{item.valor}}</span></h4>
                         <p class="description">{{item.nome}}</p>
-                       
                     </div>
                 </div>
             </div>
-            
         </div>
     </div>
 
-    
 
-    <div class="row mbl">
-        <div class="col-lg-6">
 
-            <div class="panel">
-                    <div class="panel-body">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <h4 class="mbs">Total de chamados</h4>
-                                <p class="help-block">
-                                    Acompanhamento diário dos últimos 15 dias</p>
-                                <canvas id="graficoChamadosAbertosPorDia" width="500" height="200"></canvas>
-                                <!-- <div id="area-chart-spline" style="width: 100%; height: 300px">
-                                </div> -->
+    <div class="row">
+        
+        <!--parte esquerda do dash -  a ideia eh q tenho 2/3 da tela-->
+        <div class="col-sm-8 col-md-8 col-lg-8" >
+
+            <div class="container-fluid">   
+                <div class="row">  
+                    <div class="col-sm-6 col-md-6 col-lg-6" >
+                        <div class="alert alert-success" role="alert">
+                            <h2 class="alert-heading" style="font-weight: bold">AGORA</h2>
+                            <hr>
+                            <div class="alert alert-danger" role="alert" style="font-size: 2em">
+                                Aguardando <span class="badge" style="font-size: 2em">{{dashboardCtrl.resumoChamadosOnline.aguardando}}</span>
                             </div>
-                            <!--div class="col-md-4">
-                                <h4 class="mbm">Média dos tempos de antendimento</h4>
-                                <span class="task-item" ng-repeat="mediaMin in dashboardCtrl.dadosMinutos">{{mediaMin.nome}}<small class="pull-right text-muted">{{mediaMin.valor | number:0}}</small>
-                                    <div class="progress progress-sm">
-                                        <div role="progressbar" aria-valuenow="5" aria-valuemin="0" aria-valuemax="8"
-                                           style="width: 100%;" class="progress-bar progress-bar-{{mediaMin.cor}}">
-                                        <span class="sr-only">{{mediaMin.valor}} min</span></div>
-                                    </div>
-                                </span>
-                                
-                            </div-->
+                            <div class="alert alert-warning" role="alert" style="font-size: 2em">
+                                Em atendimento <span class="badge " style="font-size: 2em">{{dashboardCtrl.resumoChamadosOnline.atendimento}}</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-6 col-md-6 col-lg-6" >
+                        <div class="alert alert-warning" role="alert">
+                            <h2 class="alert-heading" style="font-weight: bold">HOJE</h2>
+                            <hr>
+                            <div class="alert alert-info" role="alert" style="font-size: 2em">
+                                Abertos <span class="badge badge-pill " style="font-size: 3em">{{dashboardCtrl.resumoChamadosOnline.abertos}}</span>
+                            </div>
+                            <div class="alert alert-success" role="alert" style="font-size: 2em">
+                                Fechados <span class="badge badge-pill" style="font-size: 3em">{{dashboardCtrl.resumoChamadosOnline.fechados}}</span>
+                            </div>
                         </div>
                     </div>
                 </div>
-        </div>
 
-        <div class="col-lg-3">
-            <h4 class="mbm">Média dos tempos</h4>
-            <div class="task-item" ng-repeat="mediaMin in dashboardCtrl.dadosMinutos">{{mediaMin.nome}}<small class="pull-right text-muted">{{mediaMin.valor | number:0}}</small>
-                <div class="progress progress-sm" style="height: 22px;">
-                    <div role="progressbar"style="width: 100%;" class="progress-bar progress-bar-{{mediaMin.cor}}">
-                        <span style="font-size: 18px" >{{mediaMin.valor}} min</span> 
+
+                <div class="row"> 
+
+                    <div class="col-lg-9 col-md-9">
+                        <h4 class="mbs">Total de chamados</h4>
+                        <p class="help-block">
+                            Acompanhamento diário dos últimos 15 dias</p>
+                        <canvas id="graficoChamadosAbertosPorDia" width="500" height="200"></canvas>
+                        <!-- <div id="area-chart-spline" style="width: 100%; height: 300px">
+                        </div> -->
                     </div>
-                </div>
-            </div>
-        </div>
 
-
-        <div class="col-lg-3">
-            <div class="portlet box">
-                <div class="portlet-header">
-                    <div class="caption">Chamados Abertos</div>
-                </div>
-                <div class="portlet-body">
-                    <div class="chat-scroller">
-                        <ul class="chats">
-                            <li class="in" ng-repeat="aberto in dashboardCtrl.chamadosAbertos">
-                                <img src="img/icons/ico_status_aberto.png" class="avatar img-responsive" ng-show="aberto.status ==='Aberto'" />
-                                <img src="img/icons/ico_status_caminho.png" class="avatar img-responsive" ng-show="aberto.status ==='A caminho'" />
-                                <img src="img/icons/ico_status_andamento.png" class="avatar img-responsive" ng-show="aberto.status ==='Em atendimento'"  />
-                                                                  
-                                <div class="message">
-                                    <span class="chat-arrow"></span><a href="#" class="chat-name">{{aberto.status}}  Código: {{aberto.codigo}} </a>&nbsp; <br/>
-                                 
-                                     <span >{{aberto.nomeSolicitante}} | {{aberto.nomeCategoria}}</span> <br />
-                                     <span >{{aberto.nomeUnidade}}</span><br />
-
-                                      <span
-                                    class="chat-datetime">Aberto às {{aberto.dataCriacao | date: 'hh:mm'}}hrs de {{aberto.dataCriacao | date: 'dd MMM'}}</span>
-                                        
+                     <div class="col-lg-3  col-md-3">
+                        <h4 class="mbm">Média dos tempos</h4>
+                        <div class="task-item" ng-repeat="mediaMin in dashboardCtrl.dadosMinutos">{{mediaMin.nome}}<small class="pull-right text-muted">{{mediaMin.valor | number:0}}</small>
+                            <div class="progress progress-sm" style="height: 22px;">
+                                <div role="progressbar"style="width: 100%;" class="progress-bar progress-bar-{{mediaMin.cor}}">
+                                    <span style="font-size: 18px" >{{mediaMin.valor}} min</span> 
                                 </div>
-                            </li>
-                        </ul>
+                            </div>
+                        </div>
                     </div>
+
                 </div>
+
+
             </div>
         </div>
-    </div>
 
+        <!--parte direita do dash -  a ideia eh q tenho 1/3 da tela e sirva pra exibir os chamdos atuais-->
 
-    <div class="row mbl">
-        <div class="panel col-lg-1" style="background: green; color:#FFFFFF;">
-            <span style="font-size: 16px" >Apoios online: </span> 
-        </div>
-        <div class="panel col-lg-1" ng-repeat="apoio in dashboardCtrl.apoios">
-             <div class="progress progress-sm" style="height: 22px;">
-                <span style="font-size: 18px" >{{apoio.nome}}</span> 
+        <div class="col-sm-4 col-md-4 col-lg-4" >
+
+            <div class="container-fluid">
+               
+                <div class="row">
+
+                    <div class="portlet box">
+                        <div class="portlet-header">
+                            <div class="caption">Chamados Abertos</div>
+                        </div>
+                        <div class="portlet-body">
+                            <div class="chat-scroller">
+                                <ul class="chats">
+                                    <li class="in" ng-repeat="aberto in dashboardCtrl.chamadosAbertos">
+                                        <img src="img/icons/ico_status_aberto.png" class="avatar img-responsive" ng-show="aberto.status ==='Aberto'" />
+                                        <img src="img/icons/ico_status_caminho.png" class="avatar img-responsive" ng-show="aberto.status ==='A caminho'" />
+                                        <img src="img/icons/ico_status_andamento.png" class="avatar img-responsive" ng-show="aberto.status ==='Em atendimento'"  />
+                                                                          
+                                        <div class="message">
+                                            <span class="chat-arrow"></span><a href="#" class="chat-name">{{aberto.status}}  Código: {{aberto.codigo}} </a>&nbsp; <br/>
+                                         
+                                             <span >{{aberto.nomeSolicitante}} | {{aberto.nomeCategoria}}</span> <br />
+                                             <span >{{aberto.nomeUnidade}}</span><br />
+                                             <span ng-show="aberto.nomeAtendente">Atendente:{{aberto.nomeAtendente}}<br /></span>
+                                             
+                                             <span
+                                            class="chat-datetime">Aberto às {{aberto.dataCriacao | date: 'hh:mm'}}hrs de {{aberto.dataCriacao | date: 'dd MMM'}}</span>
+                                                
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
             </div>
+        </div>
+
     </div>
 
+   
 
 </div>
