@@ -3,20 +3,28 @@
 
 apoioApp.controller('PrincipalController',
 	function ($scope, $rootScope, $routeParams, $location, $sessionStorage, $mdDialog,$window, md5, loginService){
-		$scope.tituloPagina = "PRINCIPAL";
+		$scope.tituloPagina = "Login";
 
-		$sessionStorage.dono = "una";
-		$sessionStorage.idEmpresa = "5b1d9edafd09c90010bd45a6";
+		$scope.usuarioAutenticado = false;
+
+
+		console.log(' location search ', $location.search());
+
 
 		$scope.$on('tituloPagina', function (event, args) {
 		 	$scope.tituloPagina = args;
 		});
 
+		$scope.$on('usuarioAutenticado', function (event, args) {
+			console.log('PRINCIPAL CONTROLLER ONNN  ',args);
+			//$scope.usuarioAutenticado = args;
+			$scope.usuarioAutenticado = true;
+			console.log($scope.usuarioAutenticado);
+		});
 
-		
-		
 
-/*
+
+
 		$scope.logout = function(){
 			console.log('logout');
 			var cb = function(){
@@ -28,51 +36,42 @@ apoioApp.controller('PrincipalController',
 
 			$sessionStorage.usuarioLogado = null;
 			loginService.logout(cb);
-		};*/
+		};
 
 
+		console.log('is isAuthenticated PRincipal COntroller: ',loginService.isAuthenticated());
+		if(!loginService.isAuthenticated()){
+	  	
+	  		if($sessionStorage.usuarioLogado){
+				console.log("VAI RECONSTRUIR O LOGIN " ,$sessionStorage.usuarioLogado);
+	  			loginService.reconstruirSessao($sessionStorage.usuarioLogado);
+	  			$scope.usuarioAutenticado = true;
+	  		}
 
-	  /*	$scope.telaLogin = function() {
+	  	} else {
+	  		$scope.usuarioAutenticado = true;
+	  	}
 
-			$mdDialog.show({
-	      		controller: LoginController,
-	      		templateUrl: '/view/dialogs/login.tmpl.html',
-	      		parent: angular.element(document.body),
-	      		//targetEvent: ev,
-	      		clickOutsideToClose:false,
-	      		escapeToClose:false,
-	      		fullscreen: true // Only for -xs, -sm breakpoints.
-	    	})
-	    	.then(function(usuario) {
-	    		$sessionStorage.usuarioLogado = usuario;
-
-				console.log("vaiiiii login");
-	    		if(!$scope.evento){
-	    			console.log("vai selecionar o evento");
-			  		$scope.selecionarEvento();
-			  	} else {
-			  		$scope.goToDashboard();
-			  	}
-
-	    	}, function() {
-	    		// erro
-	    	});
-	  	};*/
-
-
-	  	/*console.log('is isAuthenticated ',loginService.isAuthenticated());
+	  	
+	
+				
+	  	/*
 	  	if(!loginService.isAuthenticated()){
 	  		
+	  		$scope.usuarioAutenticado = true;
+
 	  		if($sessionStorage.usuarioLogado){
 
 	  			console.log("VAI RECONSTRUIR O LOGIN " ,$sessionStorage.usuarioLogado);
 	  			loginService.reconstruirSessao($sessionStorage.usuarioLogado);
-	  			$scope.goToDashboard();
+	  			$location.replace();
+				$location.url('/dashboard');
 	  		} else{
-	  			$scope.telaLogin();		
+	  			//$scope.telaLogin();		
 	  		}
 
-	  	} else {
+	  	} */
+	  	/*else {
 	  		//if(!$scope.evento){
 		  		$scope.selecionarEvento();
 		  	//}
@@ -91,11 +90,13 @@ apoioApp.controller('PrincipalController',
 				if(!$scope.usuario || !$scope.senha) {
 					$scope.msgErro = "Todos os campos são obrigatórios."; 
 				} else {
-					var cbErro =   $scope.novoEvento = function(msg) {
+					var cbErro =  function(msg) {
+						console.log('pau no login : ',msg);
 			     		$scope.msgErro = msg;
 			    	};
 
 				    var cbSucesso = function(usuario) {
+				    	console.log('sucesso no login : ',usuario);
 				      $mdDialog.hide(usuario);
 				    };
 

@@ -309,7 +309,7 @@ apoioApp.controller('CategoriaItemController',
 			
 			categoriaCtrl.modoSalvarCateg = true;
 			categoriaCtrl.categSalvar = {};
-			categoriaCtrl.categSalvar.dono = "una";
+			categoriaCtrl.categSalvar.dono = dono;
 			categoriaCtrl.categSalvar.empresas = [idEmpresa];
 			categoriaCtrl.categSalvar.nome = "";
 	  	};

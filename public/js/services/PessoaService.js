@@ -1,8 +1,8 @@
 
 apoioApp.factory('pessoaService', function($http, $log){
 	
-	var urlPadrao = 'http://localhost:3001';
-	//var urlPadrao = 'http://ec2-35-160-247-116.us-west-2.compute.amazonaws.com:81';
+	//var urlPadrao = 'http://localhost:3001';
+	var urlPadrao = 'http://52.13.195.71:3001';
 	
 	var urlPessoa = urlPadrao+'/api/pessoa/v1/';
 
@@ -25,7 +25,7 @@ apoioApp.factory('pessoaService', function($http, $log){
 	
 
 	var getPessoaPorLogin = function(login, dono, fcCallback){
-		$http.get(urlPessoa+"?login="+login+"&dono="+dono)
+		$http.get(urlPessoa+"?login="+login)
 			.then(
 				function(data){
 					fcCallback(data.data);

@@ -3,8 +3,22 @@
 
 apoioApp.controller('MenuController',
 	function ($scope, $rootScope, $routeParams, $location, $sessionStorage, $mdDialog,$window, md5, loginService){
-		
-		
+
+		$scope.usuarioAutenticado = false;
+
+		console.log('is isAuthenticated Menu COntroller: ',loginService.isAuthenticated());
+		if(!loginService.isAuthenticated()){
+	  	
+	  		if($sessionStorage.usuarioLogado){
+				console.log("VAI RECONSTRUIR O LOGIN " ,$sessionStorage.usuarioLogado);
+	  			loginService.reconstruirSessao($sessionStorage.usuarioLogado);
+	  			$scope.usuarioAutenticado = true;
+	  		}
+
+	  	} else {
+	  		$scope.usuarioAutenticado = true;
+	  	}
+
 
 		var resetarMenuSelecionado = function(menuAtivo){
 			$scope.classDash = "";

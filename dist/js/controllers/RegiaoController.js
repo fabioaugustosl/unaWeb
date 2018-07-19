@@ -153,21 +153,17 @@ apoioApp.controller('RegiaoController',
 		};
 
 
-
-
 		regiaoCtrl.adicionarRegiao= function() {
-
 			if(!regiaoCtrl.empresaSelecionada){
 				regiaoCtrl.msgErro = "Favor seleciona uma empresa primeiro.";
 				notificarErro(regiaoCtrl.msgErro);
 			} else {
 				regiaoCtrl.msgErro = "";
 				regiaoCtrl.regiaoSalvar = {};
-				regiaoCtrl.regiaoSalvar.dono = "una";
+				regiaoCtrl.regiaoSalvar.dono = dono;
 				regiaoCtrl.regiaoSalvar.empresa = regiaoCtrl.empresaSelecionada._id;
 				regiaoCtrl.regiaoSalvar.nome = "";
 			}
-		
 	  	};
 
 
@@ -250,6 +246,7 @@ apoioApp.controller('RegiaoController',
 
 		
 		regiaoCtrl.recuperarApoiosPorEmpresa = function(empresa){
+			console.log('empresa._id ',empresa._id);
 			apoioService.listarPorEmpresa(empresa._id, callbackListarApoioPorEmpresa);		
 		};
 

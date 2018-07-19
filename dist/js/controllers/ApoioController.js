@@ -172,7 +172,7 @@ apoioApp.controller('ApoioController',
 		iniciarApoio();
 
 		if(!apoioCtrl.processando){
-			apoioCtrl.getEmpresas();
+			apoioCtrl.getEmpresas('dono='+dono);
 			apoioCtrl.pesquisar();
 		}
 		

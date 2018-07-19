@@ -14,10 +14,12 @@ apoioApp.factory('apoioService', function($http, $log){
 			paramentro = parametros;
 		}
 
+		console.log('parametros apoio: ',paramentro);
+
 		$http.get(urlApoio+paramentro)
 			.then(
 				function(data){
-					console.log(data);
+					console.log('call back service apoio: ',data);
 
 					fcCallback(data.data);
 				},
@@ -100,8 +102,6 @@ apoioApp.factory('apoioService', function($http, $log){
 			);	
 			
 	};
-
-
 
 
 

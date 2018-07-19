@@ -136,7 +136,7 @@ apoioApp.controller('EmpresaController',
 
 
 		if(!empresaCtrl.processando){
-			empresaCtrl.getEmpresas();
+			empresaCtrl.getEmpresas('?dono='+dono);
 		}
 		
 

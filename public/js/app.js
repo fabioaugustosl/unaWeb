@@ -1,7 +1,7 @@
 
 var apoioApp = angular.module('apoioApp', ['ngRoute', 'ngStorage', 'ngMaterial', 'cgNotify','angular-md5', 'angularMoment', 'ngMask'])
 		.config(function($routeProvider, $locationProvider, $logProvider, $qProvider, $compileProvider) {
-			$routeProvider.when('/index', {template:'/view/dashboard.html', controller: 'DashboardController'})
+			$routeProvider.when('/index', {templateUrl:'/view/user.html', controller: 'PrincipalController'})
 						  .when('/dashboard', {templateUrl:'/view/dashboard.html', controller: 'DashboardController'})
 						  .when('/apoio', {templateUrl:'/view/apoio.html', controller: 'ApoioController'})
 						  .when('/categoria', {templateUrl:'/view/categoria.html', controller: 'CategoriaItemController'})
@@ -14,6 +14,7 @@ var apoioApp = angular.module('apoioApp', ['ngRoute', 'ngStorage', 'ngMaterial',
 						  .when('/grafico', {templateUrl:'/view/graficos.html', controller: 'GraficoController'})
 						  .when('/relatorios', {templateUrl:'/view/relatorio.html', controller: 'RelatorioController'})
 						  .otherwise({redirectTo:'/index'});
+
 
 			$locationProvider.html5Mode(true);
 			
