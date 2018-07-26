@@ -11,6 +11,7 @@ apoioApp.controller('DashboardController',
 
 		dashboardCtrl.resumoChamadosOnline = {};
 		dashboardCtrl.atendentesOcupados = {};
+		dashboardCtrl.dadosMinutos = {};
 
 		$.cookie('animations','bounce');
 		
@@ -18,8 +19,6 @@ apoioApp.controller('DashboardController',
 		var montarContadoresDeMediaMinutos = function(){
 			
 			var callback = function(qtd){ 
-
-				dashboardCtrl.dadosMinutos = [];
 
 				if(qtd && qtd.length > 0){
 					var totalEsperaProfessor = 0;
@@ -35,7 +34,11 @@ apoioApp.controller('DashboardController',
 						totalChamados = totalChamados + obj.total;
 					}
 
-					dashboardCtrl.dadosMinutos.push({
+					dashboardCtrl.dadosMinutos.esperaProfessor = totalEsperaProfessor / totalChamados;
+					dashboardCtrl.dadosMinutos.tempoAtendimento = totalTempoAtendimento / totalChamados;
+					dashboardCtrl.dadosMinutos.tempoTotal =  (totalTempoAtendimento +totalEsperaProfessor) / totalChamados;
+
+					/*dashboardCtrl.dadosMinutos.push({
 						nome : 'Espera do professor (min)',
 						cor: 'green',
 						valor : totalEsperaProfessor / totalChamados,
@@ -54,7 +57,7 @@ apoioApp.controller('DashboardController',
 						cor: 'yellow',
 						valor : (totalTempoAtendimento +totalEsperaProfessor) / totalChamados,
 						infoUpdate : moment().format('D MMMM YYYY, hh:mm'),
-					});
+					});*/
 				}
 			};
 
@@ -124,12 +127,11 @@ apoioApp.controller('DashboardController',
 					dashboardCtrl.resumoChamadosOnline.abertos = abertos;
 					dashboardCtrl.resumoChamadosOnline.atendimento = caminho + andamento;
 					dashboardCtrl.resumoChamadosOnline.aguardando = abertos - (fechados + caminho+ andamento);
-					dashboardCtrl.resumoChamadosOnline.fechados = fechados;
-
-					
+					dashboardCtrl.resumoChamadosOnline.fechados = fechados;	
 				}
 			};
 
+			console.log('resumoChamadosDias');
 			var data = moment(new Date()).format("DD-MM-YYYY");
 			dashboardService.resumoChamadosDias(dono, data, callback);
 		};
@@ -189,12 +191,21 @@ apoioApp.controller('DashboardController',
 						dashboardCtrl.atendentesOcupados = [];
 						for(var i = 0; i<chamados.length; i++){
 							var cham = chamados[i];
-							let apoioOcupado = {};
-							apoioOcupado.nome = cham.nomeAtendente;
-							apoioOcupado.sala = cham.nomeUnidade+" / " +cham.nomeAgrupamento;
-							dashboardCtrl.atendentesOcupados.push(apoioOcupado);
+							try{
+								if(cham.nomeAtendente){
+									let apoioOcupado = {};
+									apoioOcupado.nome = cham.nomeAtendente;
+									apoioOcupado.sala = cham.nomeUnidade+" / " +cham.nomeAgrupamento;
+									dashboardCtrl.atendentesOcupados.push(apoioOcupado);	
+								} 
+							}catch(e){
+								cham.nomeAtendente = "-";
+							}
+							
 						}
 					//}
+				} else {
+					dashboardCtrl.atendentesOcupados = [];
 				}
 
 				

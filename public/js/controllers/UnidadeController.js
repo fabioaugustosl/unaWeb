@@ -117,9 +117,11 @@ apoioApp.controller('UnidadeController',
 				console.log('unidade selecionado: ',unidadeCtrl.agrupamentoSelecionado);
 				unidadeCtrl.modoSalvarUnidade = true;
 				unidadeCtrl.unidadeSalvar = {};
-				unidadeCtrl.unidadeSalvar.dono = "una";
+				unidadeCtrl.unidadeSalvar.dono = dono;
 				unidadeCtrl.unidadeSalvar.nome = null;
 				unidadeCtrl.unidadeSalvar.andar = null;
+
+				console.log('unidadeCtrl.unidadeSalvar: ',unidadeCtrl.unidadeSalvar)
 
 				unidadeCtrl.andares =  [];
 		    	console.log('qtd andares: ',unidadeCtrl.agrupamentoSelecionado);
@@ -157,7 +159,7 @@ apoioApp.controller('UnidadeController',
 
 
 	  	unidadeCtrl.salvarUnidade = function(){
-	  		console.log(unidadeCtrl.unidadeSalvar.nome);
+	  		console.log(unidadeCtrl.unidadeSalvar);
 	  		if(!unidadeCtrl.unidadeSalvar.nome){
 				unidadeCtrl.msgErro = "É necessário informar o nome da sala";
 				notificarErro(unidadeCtrl.msgErro);
