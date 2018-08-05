@@ -78,38 +78,26 @@
                 </div>
                 
                 <div class="panel-body">
-                    <table class="table table-hover table-striped">
-                       
-                       <thead>
-                            <tr>
-                                <th></th>
-                                <th>Nome</th>
-                                <th>Andar</th>
-                                <th>Código</th>
-                                <th></th>
-                            </tr>
-                        </thead>
 
-                        <tr class="tbl-item" ng-repeat="unid in unidadeCtrl.unidades | orderBy : ['andar','nome']"><!--<img/>-->
-                            <td class="img" style="width: 40px;">
-                                <img ng-src="{{unid.qrcodeImg}}" title="Código de identificação da unidade" style="max-width: 25px" />  
+                    <button class="btn btn-primary" ng-click="unidadeCtrl.download()" style="float: right;" ng-show="unidadeCtrl.unidades">Exportar unidades</button>
+
+                    <table ng-table="unidadeCtrl.tabelaListagemUnidades" class="table table-hover table-striped" show-filter="true">
+                        <tr ng-repeat="unid in $data">
+                            <td title="'QRCode'" >
+                              <img ng-src="{{unid.qrcodeImg}}" title="Código de identificação da unidade" style="max-width: 25px" />    
                             </td>
-                            <td >
-                                <p>{{unid.nome}}</p>
-                            </td>
-                            <td>
-                                <p>{{unid.andar}}</p>
-                            </td>
-                            <td>
-                                <p>{{unid.codigo}}</p>
-                            </td>
-                            <td>
-                                 <button type="button" class="btn" ng-confirm-click="Tem certeza que deseja excluir a sala {{unid.nome}}?" confirmed-click="unidadeCtrl.removerUnidade(unid._id)"><i class="fa fa-eraser fa-fw fa_custom"></i></button>
+                            <td title="'Nome'" filter="{ nome: 'text'}" sortable="'nome'">
+                                {{unid.nome}}</td>
+                            <td title="'Andar'" filter="{ andar: 'number'}" sortable="'andar'">
+                                {{unid.cpf}}</td>
+                            <td title="'Codigo'" filter="{ codigo: 'text'}" sortable="'codigo'">
+                                {{unid.codigo}}</td>
+                            <td title="'Remover'">
+                                <button type="button" class="btn" ng-confirm-click="Tem certeza que deseja excluir a sala {{unid.nome}}?" confirmed-click="unidadeCtrl.removerUnidade(unid._id)"><i class="fa fa-eraser fa-fw fa_custom"></i></button>
                             </td>
                         </tr>
-
-                        </tbody>
                     </table>
+
                 </div>
             </div>
 

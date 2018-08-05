@@ -1,18 +1,21 @@
 <div class="page-content" ng-controller="DashboardController as dashboardCtrl" >
 
-
-    <div class="panel panel-primary" ng-show="dashboardCtrl.atendentesOcupados && dashboardCtrl.atendentesOcupados.length > 0" style="width: 100%;">
-        <div class="panel-heading">Atendentes em ocupados</div>
-        <div class="panel-body" style="padding:3px;">
-            <div class="well well-sm" ng-repeat="apoio in dashboardCtrl.atendentesOcupados" style="width: 20%; ">
-                <h5 class="card-title" style="font-weight: bold; color: #000000;">{{apoio.nome}}</h5>
-                <p class="card-text" style="font-size: 0.8em">{{apoio.sala}}</p>
+    <div id="tab-general" ng-show="dashboardCtrl.atendentesOcupados && dashboardCtrl.atendentesOcupados.length > 0" >
+        <div id="sum_box" class="row mbl" style="margin-bottom:0px!important;"> 
+            <div class="col-sm-3 col-md-3 " ng-repeat="apoio in dashboardCtrl.atendentesOcupados" >
+                <div class="panel profit db mbm" >
+                    <div class="panel-body" style="background: #68838B; color:#000000;padding:5px;">
+                        <h4 class="value" style="margin-top: -8px;">
+                            <span  style="font-size: 20px;">{{apoio.nome}}</span> <span style="font-size: 12px;">{{apoio.sala}}</span></h4>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 
 
-    <div id="tab-general">
+    <!-- PAINEL ANTIGO DE STATUS DOS CHAMADOS-->
+    <!--div id="tab-general">
         <div id="sum_box" class="row mbl"> 
             <div class="col-sm-6 col-md-3 " ng-show="dashboardCtrl.resumoChamados" ng-repeat="item in dashboardCtrl.resumoChamados">
                
@@ -28,6 +31,72 @@
                 </div>
             </div>
         </div>
+    </div-->
+
+     <div id="tab-general">
+        <div id="sum_box" class="row mbl"> 
+                <div class="col-sm-3 col-md-3 " >
+                   
+                    <div class="panel profit db mbm">
+                        <div class="panel-body" style="background: #008B45; color:#000000; padding:7px;">
+                            <p class="icon" >
+                                <i class="icon fa fa-bell-o" style="font-size: 40px;"></i>
+                            </p>
+                            <h4 class="value">
+                                <span  style="font-size: 40px;" >{{dashboardCtrl.resumoChamadosOnline.abertos}}</span></h4>
+                            <p class="description" style="margin-bottom:0px;">Abertos hoje</p>
+                        </div>
+                    </div>
+
+                </div>
+
+                 <div class="col-sm-3 col-md-3 " >
+                   
+                    <div class="panel profit db mbm">
+                        <div class="panel-body" style="background: #CD3333;  color:#FFFFFF;padding:7px;">
+                            <p class="icon" >
+                                <i class="icon fa fa-wrench" style="font-size: 40px;"></i>
+                            </p>
+                            <h4 class="value">
+                                <span  style="font-size: 40px;">{{dashboardCtrl.resumoChamadosOnline.aguardando}}</span></h4>
+                            <p class="description" style="margin-bottom:0px;">Aguardando atendimento</p>
+                        </div>
+                    </div>
+
+                </div>
+
+
+                <div class="col-sm-3 col-md-3 " >
+                   
+                    <div class="panel profit db mbm">
+                        <div class="panel-body" style="background: #EEB422; color:#000000;padding:7px;">
+                            <p class="icon" >
+                                <i class="icon fa fa-wrench" style="font-size: 40px;"></i>
+                            </p>
+                            <h4 class="value">
+                                <span  style="font-size: 40px;">{{dashboardCtrl.resumoChamadosOnline.atendimento}}</span></h4>
+                            <p class="description" style="margin-bottom:0px;">Em atendimento</p>
+                        </div>
+                    </div>
+
+                </div>
+
+             
+                <div class="col-sm-3 col-md-3 " >
+                 
+                    <div class="panel profit db mbm">
+                        <div class="panel-body" style="background: #4F4F4F; color: #FFFFFF; padding:7px;">
+                            <p class="icon" >
+                                <i class="icon fa fa-thumbs-o-up fa-custon" style="font-size: 40px;"></i>
+                            </p>
+                            <h4 class="value">
+                                <span  style="font-size: 40px;">{{dashboardCtrl.resumoChamadosOnline.fechados}}</span></h4>
+                            <p class="description" style="margin-bottom:0px;">Fechados hoje</p>
+                        </div>
+                    </div>
+
+                </div>
+        </div>
     </div>
 
 
@@ -38,77 +107,62 @@
 
             <div class="container-fluid">   
                 <div class="row">  
-                    <div class="col-sm-6 col-md-6 col-lg-6" >
-                        <div style="background: #548B54; border: 1px solid #006400;">
-                            <h2  style="font-weight: bold; color: #FFFFFF; background: #008B00; padding: 10px; margin: 0px;">AGORA</h2>
-                            <hr style="margin: 0px;">
-                            <div  style="font-size: 1.8em; height: 40px; color: #FFFFFF" >
-                                Aguardando <span style="font-size: 1.2em; background: #006400;  padding-left: 3px; padding-right: 3px; font-weight: bold; float: left;">{{dashboardCtrl.resumoChamadosOnline.aguardando}}</span>
-                            </div>
-                            <div style="font-size: 1.8em; height: 40px; color: #FFFFFF">
-                                Em atendimento <span style="font-size: 1.2em; background: #006400;  padding-left: 3px; padding-right: 3px; font-weight: bold; float: left;">{{dashboardCtrl.resumoChamadosOnline.atendimento}}</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-sm-6 col-md-6 col-lg-6" >
-                        <div style="background: #EEDD82; border: 1px solid #006400;">
-                            <h2 style="font-weight: bold; color: #000000; background: #DAA520; padding: 10px; margin: 0px;">HOJE</h2>
-                            <hr style="margin: 0px;">
-                            <div  style="font-size: 2em">
-                                Abertos <span class="badge badge-pill " >{{dashboardCtrl.resumoChamadosOnline.abertos}}</span>
-                            </div>
-                            <div style="font-size: 2em">
-                                Fechados <span class="badge badge-pill" style="font-size: 3em">{{dashboardCtrl.resumoChamadosOnline.fechados}}</span>
-                            </div>
-                        </div>
-                    </div>
+                    
                 </div>
-
 
                 <div class="row"> 
 
                     <div class="col-lg-8 col-md-8">
-                        <h4 class="mbs">Total de chamados</h4>
-                        <p class="help-block">
+                        <div class="portlet box">
+                            <div class="portlet-header" style="background: #EEE9E9">
+                                <div class="caption" >Total de chamados</div>
+                            </div>
+                            <div class="portlet-body">
+                                <p class="help-block">
                             Acompanhamento diário dos últimos 15 dias</p>
-                        <canvas id="graficoChamadosAbertosPorDia" width="500" height="200"></canvas>
-                        <!-- <div id="area-chart-spline" style="width: 100%; height: 300px">
-                        </div> -->
-                    </div>
-
-                     <div class="col-lg-4 col-md-4" style="border: 2px solid #8B0000; background-color: #FFDAB9;">
-                        <h4 class="mbm" style="font-weight: bold; text-align: center; color: #000000;">Média dos tempos</h4>
-                         <div class="portlet-body">
-                            <div class="chat-scroller">
-                                <ul class="chats">
-                                    <li class="in">
-                                        <img src="img/icons/ico_espera_professor.png" style="float: left" />
-                                                                          
-                                        <div class="message">
-                                             <span style="color: #000000" >Espera do professor</span> <br />
-                                             <span style="font-size: 18px; color: #FF0000; font-weight: bold;" >{{dashboardCtrl.dadosMinutos.esperaProfessor}} min</span>
-                                        </div>
-                                    </li>
-                                    <li class="in">
-                                        <img src="img/icons/ico_tempo_atendimento.png" style="float: left" />
-                                                                          
-                                        <div class="message">
-                                             <span style="color: #000000">Atendimento</span> <br />
-                                             <span style="font-size: 18px; color: #FF0000; font-weight: bold;">{{dashboardCtrl.dadosMinutos.tempoAtendimento}} min</span>
-                                        </div>
-                                    </li>
-                                    <li class="in">
-                                        <img src="img/icons/ico_tempo_total.png" style="float: left" />
-                                                                          
-                                        <div class="message">
-                                             <span style="color: #000000">Total</span> <br />
-                                             <span style="font-size: 18px; color: #FF0000; font-weight: bold;">{{dashboardCtrl.dadosMinutos.tempoTotal}} min</span> 
-                                        </div>
-                                    </li>
-                                </ul>
+                                <canvas id="graficoChamadosAbertosPorDia" width="500" height="200"></canvas>
                             </div>
                         </div>
+
+                    </div>
+
+                     <div class="col-lg-4 col-md-4" >
+                        
+                         <div class="portlet box">
+                            <div class="portlet-header" style="background: #EEE9E9">
+                                <div class="caption" >Média dos tempos</div>
+                            </div>
+                            <div class="portlet-body">
+                                 <div class="chat-scroller">
+                                    <ul class="chats">
+                                        <li class="in">
+                                            <img src="img/icons/ico_espera_professor.png" style="float: left" />
+                                                                              
+                                            <div class="message">
+                                                 <span style="color: #000000" >Espera do professor</span> <br />
+                                                 <span style="font-size: 18px; color: #FF0000; font-weight: bold;" >{{dashboardCtrl.dadosMinutos.esperaProfessor | number:0}} min</span>
+                                            </div>
+                                        </li>
+                                        <li class="in">
+                                            <img src="img/icons/ico_tempo_atendimento.png" style="float: left" />
+                                                                              
+                                            <div class="message">
+                                                 <span style="color: #000000">Atendimento</span> <br />
+                                                 <span style="font-size: 18px; color: #FF0000; font-weight: bold;">{{dashboardCtrl.dadosMinutos.tempoAtendimento | number:0}} min</span>
+                                            </div>
+                                        </li>
+                                        <li class="in">
+                                            <img src="img/icons/ico_tempo_total.png" style="float: left" />
+                                                                              
+                                            <div class="message">
+                                                 <span style="color: #000000">Total</span> <br />
+                                                 <span style="font-size: 18px; color: #FF0000; font-weight: bold;">{{dashboardCtrl.dadosMinutos.tempoTotal | number:0}} min</span> 
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>                            
 
                     </div>
 
@@ -127,7 +181,7 @@
                 <div class="row">
 
                     <div class="portlet box">
-                        <div class="portlet-header">
+                        <div class="portlet-header" style="background: #EEE9E9">
                             <div class="caption" >Chamados Abertos</div>
                         </div>
                         <div class="portlet-body">

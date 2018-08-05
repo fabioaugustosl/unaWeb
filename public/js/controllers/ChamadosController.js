@@ -1,6 +1,6 @@
 
 apoioApp.controller('ChamadosController', 
-	function ($scope, $rootScope, $routeParams, $mdDialog, $sessionStorage, notify, chamadoService, empresaService){
+	function ($scope, $rootScope, $routeParams, $mdDialog,$uibModal, $sessionStorage, NgTableParams, notify, chamadoService, empresaService){
 		
 		var chamadoCtrl = this;
 
@@ -20,6 +20,7 @@ apoioApp.controller('ChamadosController',
 		chamadoCtrl.empresaFiltro = idEmpresa;
 
 		chamadoCtrl.empresas = null;
+		chamadoCtrl.tabelaListagem = null;
 
 
 		/* Recupera as empresas para exibição no combo do filtro */
@@ -83,14 +84,13 @@ apoioApp.controller('ChamadosController',
 
 	    };
 
-
-
-	  	
+  	
 
 		chamadoCtrl.selecionarChamado = function(chamado){
 			chamadoCtrl.processando  = true;
 			chamadoCtrl.chamadoSelecionado = chamado;
 			chamadoCtrl.processando  = false;
+			$scope.open();
 		};
 
 
@@ -98,6 +98,7 @@ apoioApp.controller('ChamadosController',
 	  	var callbackListarChamados = function(resultado){
 			console.log("call back listar", resultado);
 			chamadoCtrl.chamados = resultado;
+			chamadoCtrl.tabelaListagem =  new NgTableParams({}, { dataset: chamadoCtrl.chamados});
 			chamadoCtrl.processando  = false;
 			chamadoCtrl.chamadoSelecionado = null;
 		};
@@ -120,6 +121,50 @@ apoioApp.controller('ChamadosController',
 			chamadoCtrl.listarChamados();
 			chamadoCtrl.recuperarEmpresasFiltro();
 		}
+
+
+
+		
+
+		$scope.open = function (size) {
+
+		    var modalInstance = $uibModal.open({
+		     //animation: $scope.animationsEnabled,
+		      templateUrl: '/view/dialogs/chamado.tmpl.html',
+		      controller: 'DialogController',
+		      //size: size,
+		      resolve: {
+		        dataToPass: function () {
+		          return chamadoCtrl.chamadoSelecionado;
+		        }
+		      }
+		    });
+
+		    modalInstance.result.then(function () {
+		      	// Tive que fazer essa gambiarra pra sumir com uma div q ficava na frente da tela 
+		       angular.element(document.querySelector('.modal')).css( "zIndex", -2);
+		       angular.element(document.querySelector('.modal-backdrop')).css( "zIndex", -2);
+		      
+
+		    }, function () {
+		      //$log.info('Modal dismissed at: ' + new Date());
+		    });
+		  };
+
+
 	}
 	
 );
+
+
+apoioApp.controller('DialogController', function ($scope, $uibModalInstance, dataToPass) {
+
+  $scope.chamadoSelecionado = dataToPass;
+
+  $scope.ok = function () {
+  	$scope.chamadoSelecionado = null
+    $uibModalInstance.close();
+  };
+
+  
+});
