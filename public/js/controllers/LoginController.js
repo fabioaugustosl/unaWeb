@@ -26,10 +26,11 @@ apoioApp.controller('LoginController',
 					$sessionStorage.idEmpresa = usuario.info_extra1;//"5b1d9edafd09c90010bd45a6";
 
 					$location.replace();
+					$location.url('/');
 					$window.location.reload();
 			    };
 
-			    console.log('Senha md5: ',md5.createHash($scope.senha || ''));
+			    //console.log('Senha md5: ',md5.createHash($scope.senha || ''));
 				loginService.login($scope.usuario, md5.createHash($scope.senha || '') , $sessionStorage.dono, cbSucesso, cbErro);
 			}
 		};
