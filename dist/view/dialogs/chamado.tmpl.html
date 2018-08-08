@@ -1,0 +1,110 @@
+<div class="modal-header">
+    <h3 class="modal-title">Detalhes do chamado</h3>
+</div>
+
+<div class="modal-body">
+    <div class="row">
+              <div class="col-lg-6">
+                  <label class="negrito">Status: </label>
+                  <label>{{chamadoSelecionado.status}}</label>
+              </div>
+              <div class="col-lg-6">
+                  <label class="negrito">Código: </label>
+                  <label>{{chamadoSelecionado.codigo}}</label>
+              </div>
+          </div>
+          
+          <div class="row">
+              <div class="col-lg-6">
+                  <label class="negrito">Categoria: </label>
+                   <label>{{chamadoSelecionado.nomeCategoria}}</label>
+              </div>
+              <div class="col-lg-6">
+                  <label class="negrito">Data/hora abertura: </label>
+                  <label>{{chamadoSelecionado.dataCriacao | date :'hh:mm'}}hrs de {{chamadoSelecionado.dataCriacao | date :'dd/MM/yyyy'}}</label>
+              </div>
+          </div>
+         
+          <div class="row">
+              <div class="col-lg-6">
+                  <label class="negrito">Solicitante: </label>
+                  <label>{{chamadoSelecionado.nomeSolicitante}}</label>
+              </div>
+              <div class="col-lg-6">
+                  <label class="negrito">Unidade: </label>
+                  <label>{{chamadoSelecionado.idUnidade.nome}} - andar {{chamadoSelecionado.idUnidade.andar}}</label>
+              </div>
+          </div>
+
+         <div class="row" style="margin-top: 5px;">
+              <div class="col-lg-8 celulaComFundo celulaComBorda">
+                  <label class="negrito">Tempo até o chamado ser atribuido: </label>
+              </div>
+              <div class="col-lg-4 celulaComFundo celulaComBorda">
+                  <label ng-show="chamadoSelecionado.minutosAteAtribuicao">{{chamadoSelecionado.minutosAteAtribuicao}} minutos</label>
+
+                  <label ng-show="chamadoSelecionado.minutosAteAtribuicao == 0">0 minutos</label>
+              </div>
+          </div>
+
+          <div class="row">
+              <div class="col-lg-8 celulaComFundo celulaComBorda">
+                  <label class="negrito">Tempo até da atribuição até o início do atendimento: </label>
+              </div>
+              <div class="col-lg-4 celulaComFundo celulaComBorda">
+                  <label ng-show="chamadoSelecionado.minutosDaAtribuicaoAteInicio">{{chamadoSelecionado.minutosDaAtribuicaoAteInicio}} minutos</label>
+              </div>
+          </div>
+
+          <div class="row">
+              <div class="col-lg-8 celulaComFundo celulaComBorda">
+                  <label class="negrito">Tempo total de espera do professor: </label>
+              </div>
+              <div class="col-lg-4 celulaComFundo celulaComBorda">
+                  <label ng-show="chamadoSelecionado.minutosDaAtribuicaoAteInicio">{{chamadoSelecionado.minutosDaAtribuicaoAteInicio + chamadoSelecionado.minutosDaAtribuicaoAteInicio}} minutos</label>
+              </div>
+          </div>
+
+          <div class="row">
+              <div class="col-lg-8 celulaComFundo celulaComBorda">
+                  <label class="negrito">Avaliação do professor: </label>
+              </div>
+              <div class="col-lg-4 celulaComFundo celulaComBorda">
+                  <label ng-show="chamadoSelecionado.avaliacaoAtendimento">{{chamadoSelecionado.avaliacaoAtendimento}}</label>
+                   <label ng-hide="chamadoSelecionado.avaliacaoAtendimento">NA</label>
+              </div>
+          </div>
+
+          <div class="row">
+              <div class="col-lg-8 celulaComFundo celulaComBorda">
+                  <label class="negrito">Tempo de atendimento: </label>
+              </div>
+              <div class="col-lg-4 celulaComFundo celulaComBorda">
+                  <label ng-show="chamadoSelecionado.minutosDoInicioAteFinalizacao">{{chamadoSelecionado.minutosDoInicioAteFinalizacao}} minutos</label>
+              </div>
+          </div>
+
+          <div class="row">
+              <div class="col-lg-8 celulaComFundo celulaComBorda">
+                  <label class="negrito">Tempo total para solução: </label>
+              </div>
+              <div class="col-lg-4 celulaComFundo celulaComBorda">
+                  <label ng-show="chamadoSelecionado.minutosDoInicioAteFinalizacao">{{chamadoSelecionado.minutosDaAtribuicaoAteInicio + chamadoSelecionado.minutosDaAtribuicaoAteInicio +
+                  chamadoSelecionado.minutosDoInicioAteFinalizacao}} minutos</label>
+              </div>
+          </div>
+
+           <div class="row">
+              <div class="col-lg-8 celulaComFundo celulaComBorda">
+                  <label class="negrito">Comentário apoio: </label>
+              </div>
+              <div class="col-lg-4 celulaComFundo celulaComBorda">
+                  <label>{{chamadoSelecionado.comentarioEncerramento}}</label>
+              </div>
+          </div>
+</div>
+
+<div class="modal-footer">
+    <button class="btn btn-primary" type="button" ng-click="ok()">OK</button>
+</div>
+
