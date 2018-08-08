@@ -106,7 +106,7 @@ apoioApp.controller('UnidadeController',
 		
 
 		var callbackListarAgrupamentos = function(resultado){
-			console.log("call back listar", resultado);
+			//console.log("call back listar", resultado);
 			unidadeCtrl.agrupamentos = resultado;
 			unidadeCtrl.processando  = false;
 			unidadeCtrl.idAgrupamentoSelecionado = null;
@@ -121,7 +121,7 @@ apoioApp.controller('UnidadeController',
 
 
 		var callbackListarUnidades = function(resultado){
-			console.log("call back listar", resultado);
+			//console.log("call back listar", resultado);
 			unidadeCtrl.unidades = resultado;
 			unidadeCtrl.tabelaListagemUnidades =  new NgTableParams({}, { dataset: unidadeCtrl.unidades});
 			unidadeCtrl.processando  = false;
@@ -130,7 +130,7 @@ apoioApp.controller('UnidadeController',
 		
 		unidadeCtrl.getUnidades = function(idAgrupamento){
 			unidadeCtrl.processando = true;
-			console.log('get unidades ',idAgrupamento);
+			//console.log('get unidades ',idAgrupamento);
 			unidadeService.getUnidades(idAgrupamento, callbackListarUnidades);		
 		};
 
@@ -138,7 +138,8 @@ apoioApp.controller('UnidadeController',
 
 		unidadeCtrl.selecionarAgrupamento = function(){
 			unidadeCtrl.processando  = true;
-			console.log('selectionar agrupamento ',unidadeCtrl.idAgrupamentoSelecionado);
+			unidadeCtrl.msgErro = '';
+			//console.log('selectionar agrupamento ',unidadeCtrl.idAgrupamentoSelecionado);
 
 			for (i = 0; i < unidadeCtrl.agrupamentos.length; i++) { 
 				var ag = unidadeCtrl.agrupamentos[i];
@@ -193,9 +194,9 @@ apoioApp.controller('UnidadeController',
     				break;
     			}
     		} 
-    		console.log('vai remover : ', uni);
+    		//console.log('vai remover : ', uni);
 			var indexOfItem = unidadeCtrl.unidades.indexOf(unidadeExcluir);
-			console.log('index vai remover : ', indexOfItem);
+			//console.log('index vai remover : ', indexOfItem);
 		    unidadeCtrl.unidades.splice(indexOfItem, 1);
 
 		    unidadeCtrl.tabelaListagemUnidades =  new NgTableParams({}, { dataset: unidadeCtrl.unidades});
@@ -207,7 +208,7 @@ apoioApp.controller('UnidadeController',
 
 
 	  	unidadeCtrl.salvarUnidade = function(){
-	  		console.log(unidadeCtrl.unidadeSalvar);
+	  		//console.log(unidadeCtrl.unidadeSalvar);
 	  		if(!unidadeCtrl.unidadeSalvar.nome){
 				unidadeCtrl.msgErro = "É necessário informar o nome da sala";
 				notificarErro(unidadeCtrl.msgErro);

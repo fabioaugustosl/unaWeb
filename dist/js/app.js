@@ -1,7 +1,7 @@
 
-var apoioApp = angular.module('apoioApp', ['ngRoute', 'ngStorage', 'ngMaterial', 'cgNotify','angular-md5', 'angularMoment', 'ngMask'])
+var apoioApp = angular.module('apoioApp', ['ngRoute', 'ngStorage', 'ngMaterial', 'cgNotify', 'angular-md5', 'angularMoment', 'ngMask', 'ngTable', 'ui.bootstrap'])
 		.config(function($routeProvider, $locationProvider, $logProvider, $qProvider, $compileProvider) {
-			$routeProvider.when('/index', {templateUrl:'/view/user.html', controller: 'PrincipalController'})
+			$routeProvider.when('/index', {templateUrl:'/view/login.html', controller: 'PrincipalController'})
 						  .when('/dashboard', {templateUrl:'/view/dashboard.html', controller: 'DashboardController'})
 						  .when('/apoio', {templateUrl:'/view/apoio.html', controller: 'ApoioController'})
 						  .when('/categoria', {templateUrl:'/view/categoria.html', controller: 'CategoriaItemController'})

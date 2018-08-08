@@ -5,7 +5,7 @@ apoioApp.controller('GraficoController',
 		var graficoCtrl = this;
 		console.log("Graficos Controller");
 
-		var cores = ['#00BFFF', '#708090', '#98FB98','#708090','#D2691E','#FFA500','#FFFF00','#DAA520','#CAE1FF','#C1CDCD', '#FFE4C4','#00FFFF', '#87CEFF' ,'#2E8B57', '#CD8C95'];
+		var cores = ['#0000FF', '#2F4F4F', '#CD0000','#CD950C','#8B7355','#8B4C39','#8B8970','#473C8B','#6B8E23','#483D8B', '#4682B4','#00FFFF', '#87CEFF' ,'#36648B', '#8B4513'];
 
 		$scope.$emit("tituloPagina", "Gráficos");
 

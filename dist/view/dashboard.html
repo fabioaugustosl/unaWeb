@@ -1,25 +1,26 @@
 <div class="page-content" ng-controller="DashboardController as dashboardCtrl" >
 
-
-    <div class="row" ng-show="dashboardCtrl.atendentesOcupados && dashboardCtrl.atendentesOcupados.length > 0" style="background: #000000; width: 100%; color:#FFFFFF;">
-        <div class="col-lg-2 col-md-2 col-sm-4" ng-repeat="apoio in dashboardCtrl.atendentesOcupados">
-            
-            <div class="card" style="width: 100%; border: 1px solid #FFFFFF; padding:5px;">
-              <div class="card-body">
-                <h5 class="card-title">{{apoio.nome}}</h5>
-                <p class="card-text" style="font-size: 0.8em">{{apoio.sala}}</p>
-              </div>
+    <div id="tab-general" ng-show="dashboardCtrl.atendentesOcupados && dashboardCtrl.atendentesOcupados.length > 0" >
+        <div id="sum_box" class="row mbl" style="margin-bottom:0px!important;"> 
+            <div class="col-sm-3 col-md-3 " ng-repeat="apoio in dashboardCtrl.atendentesOcupados" >
+                <div class="panel profit db mbm" >
+                    <div class="panel-body" style="background: #68838B; color:#000000;padding:5px;">
+                        <h4 class="value" style="margin-top: -8px;">
+                            <span  style="font-size: 20px;">{{apoio.nome}}</span> <span style="font-size: 12px;">{{apoio.sala}}</span></h4>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 
 
-    <div id="tab-general">
+    <!-- PAINEL ANTIGO DE STATUS DOS CHAMADOS-->
+    <!--div id="tab-general">
         <div id="sum_box" class="row mbl"> 
             <div class="col-sm-6 col-md-3 " ng-show="dashboardCtrl.resumoChamados" ng-repeat="item in dashboardCtrl.resumoChamados">
                
                 <div class="panel profit db mbm">
-                    <div class="panel-body">
+                    <div class="panel-body" >
                         <p class="icon">
                             <i class="icon fa {{item.classIcon}}"></i>
                         </p>
@@ -30,65 +31,137 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div-->
 
+     <div id="tab-general">
+        <div id="sum_box" class="row mbl"> 
+                <div class="col-sm-3 col-md-3 " >
+                   
+                    <div class="panel profit db mbm">
+                        <div class="panel-body" style="background: #008B45; color:#000000; padding:7px;">
+                            <p class="icon" >
+                                <i class="icon fa fa-bell-o" style="font-size: 40px;"></i>
+                            </p>
+                            <h4 class="value">
+                                <span  style="font-size: 40px;" >{{dashboardCtrl.resumoChamadosOnline.abertos}}</span></h4>
+                            <p class="description" style="margin-bottom:0px;">Abertos hoje</p>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="col-sm-3 col-md-3 " >
+                   
+                    <div class="panel profit db mbm">
+                        <div class="panel-body" style="background: #EEB422; color:#000000;padding:7px;">
+                            <p class="icon" >
+                                <i class="icon fa fa-wrench" style="font-size: 40px;"></i>
+                            </p>
+                            <h4 class="value">
+                                <span  style="font-size: 40px;">{{dashboardCtrl.resumoChamadosOnline.atendimento}}</span></h4>
+                            <p class="description" style="margin-bottom:0px;">Em atendimento</p>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="col-sm-3 col-md-3 " >
+                   
+                    <div class="panel profit db mbm">
+                        <div class="panel-body" style="background: #CD3333;  color:#FFFFFF;padding:7px;">
+                            <p class="icon" >
+                                <i class="icon fa fa-wrench" style="font-size: 40px;"></i>
+                            </p>
+                            <h4 class="value">
+                                <span  style="font-size: 40px;">{{dashboardCtrl.resumoChamadosOnline.aguardando}}</span></h4>
+                            <p class="description" style="margin-bottom:0px;">Aguardando atendimento</p>
+                        </div>
+                    </div>
+
+                </div>
+
+             
+                <div class="col-sm-3 col-md-3 " >
+                 
+                    <div class="panel profit db mbm">
+                        <div class="panel-body" style="background: #4F4F4F; color: #FFFFFF; padding:7px;">
+                            <p class="icon" >
+                                <i class="icon fa fa-thumbs-o-up fa-custon" style="font-size: 40px;"></i>
+                            </p>
+                            <h4 class="value">
+                                <span  style="font-size: 40px;">{{dashboardCtrl.resumoChamadosOnline.fechados}}</span></h4>
+                            <p class="description" style="margin-bottom:0px;">Fechados hoje</p>
+                        </div>
+                    </div>
+
+                </div>
+        </div>
+    </div>
 
 
     <div class="row">
         
         <!--parte esquerda do dash -  a ideia eh q tenho 2/3 da tela-->
-        <div class="col-sm-8 col-md-8 col-lg-8" >
+        <div class="col-sm-9 col-md-9 col-lg-9" >
 
             <div class="container-fluid">   
                 <div class="row">  
-                    <div class="col-sm-6 col-md-6 col-lg-6" >
-                        <div class="alert alert-success" role="alert">
-                            <h2 class="alert-heading" style="font-weight: bold">AGORA</h2>
-                            <hr>
-                            <div class="alert alert-danger" role="alert" style="font-size: 2em">
-                                Aguardando <span class="badge" style="font-size: 2em">{{dashboardCtrl.resumoChamadosOnline.aguardando}}</span>
-                            </div>
-                            <div class="alert alert-warning" role="alert" style="font-size: 2em">
-                                Em atendimento <span class="badge " style="font-size: 2em">{{dashboardCtrl.resumoChamadosOnline.atendimento}}</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-sm-6 col-md-6 col-lg-6" >
-                        <div class="alert alert-warning" role="alert">
-                            <h2 class="alert-heading" style="font-weight: bold">HOJE</h2>
-                            <hr>
-                            <div class="alert alert-info" role="alert" style="font-size: 2em">
-                                Abertos <span class="badge badge-pill " style="font-size: 3em">{{dashboardCtrl.resumoChamadosOnline.abertos}}</span>
-                            </div>
-                            <div class="alert alert-success" role="alert" style="font-size: 2em">
-                                Fechados <span class="badge badge-pill" style="font-size: 3em">{{dashboardCtrl.resumoChamadosOnline.fechados}}</span>
-                            </div>
-                        </div>
-                    </div>
+                    
                 </div>
-
 
                 <div class="row"> 
 
-                    <div class="col-lg-9 col-md-9">
-                        <h4 class="mbs">Total de chamados</h4>
-                        <p class="help-block">
+                    <div class="col-lg-8 col-md-8" style="padding:0px;">
+                        <div class="portlet box">
+                            <div class="portlet-header" style="background: #EEE9E9">
+                                <div class="caption" >Total de chamados</div>
+                            </div>
+                            <div class="portlet-body">
+                                <p class="help-block">
                             Acompanhamento diário dos últimos 15 dias</p>
-                        <canvas id="graficoChamadosAbertosPorDia" width="500" height="200"></canvas>
-                        <!-- <div id="area-chart-spline" style="width: 100%; height: 300px">
-                        </div> -->
-                    </div>
-
-                     <div class="col-lg-3  col-md-3">
-                        <h4 class="mbm">Média dos tempos</h4>
-                        <div class="task-item" ng-repeat="mediaMin in dashboardCtrl.dadosMinutos">{{mediaMin.nome}}<small class="pull-right text-muted">{{mediaMin.valor | number:0}}</small>
-                            <div class="progress progress-sm" style="height: 22px;">
-                                <div role="progressbar"style="width: 100%;" class="progress-bar progress-bar-{{mediaMin.cor}}">
-                                    <span style="font-size: 18px" >{{mediaMin.valor}} min</span> 
-                                </div>
+                                <canvas id="graficoChamadosAbertosPorDia" width="500" height="200"></canvas>
                             </div>
                         </div>
+                    </div>
+
+                     <div class="col-lg-4 col-md-4" style="margin:0px; padding-right:0px;">
+                        
+                         <div class="portlet box">
+                            <div class="portlet-header" style="background: #EEE9E9">
+                                <div class="caption" >Média dos tempos</div>
+                            </div>
+                            <div class="portlet-body">
+                                 <div class="chat-scroller">
+                                    <ul class="chats">
+                                        <li class="in">
+                                            <img src="img/icons/ico_espera_professor.png" style="float: left" />
+                                                                              
+                                            <div class="message">
+                                                 <span style="color: #000000" >Espera do professor</span> <br />
+                                                 <span style="font-size: 18px; color: #FF0000; font-weight: bold;" >{{dashboardCtrl.dadosMinutos.esperaProfessor | number:0}} min</span>
+                                            </div>
+                                        </li>
+                                        <li class="in">
+                                            <img src="img/icons/ico_tempo_atendimento.png" style="float: left" />
+                                                                              
+                                            <div class="message">
+                                                 <span style="color: #000000">Atendimento</span> <br />
+                                                 <span style="font-size: 18px; color: #FF0000; font-weight: bold;">{{dashboardCtrl.dadosMinutos.tempoAtendimento | number:0}} min</span>
+                                            </div>
+                                        </li>
+                                        <li class="in">
+                                            <img src="img/icons/ico_tempo_total.png" style="float: left" />
+                                                                              
+                                            <div class="message">
+                                                 <span style="color: #000000">Total</span> <br />
+                                                 <span style="font-size: 18px; color: #FF0000; font-weight: bold;">{{dashboardCtrl.dadosMinutos.tempoTotal | number:0}} min</span> 
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>                            
+
                     </div>
 
                 </div>
@@ -99,15 +172,15 @@
 
         <!--parte direita do dash -  a ideia eh q tenho 1/3 da tela e sirva pra exibir os chamdos atuais-->
 
-        <div class="col-sm-4 col-md-4 col-lg-4" >
+        <div class="col-sm-3 col-md-3 col-lg-3" style="margin:0px; padding-left:0px;" >
 
             <div class="container-fluid">
                
                 <div class="row">
 
                     <div class="portlet box">
-                        <div class="portlet-header">
-                            <div class="caption">Chamados Abertos</div>
+                        <div class="portlet-header" style="background: #EEE9E9">
+                            <div class="caption" >Chamados Abertos</div>
                         </div>
                         <div class="portlet-body">
                             <div class="chat-scroller">

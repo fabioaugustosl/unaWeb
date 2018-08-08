@@ -1,6 +1,6 @@
 
 apoioApp.controller('SolicitanteAutorizadoController', 
-	function ($scope, $rootScope, $routeParams, $sessionStorage, notify, autorizadoService){
+	function ($scope, $rootScope, $routeParams, $sessionStorage, NgTableParams, notify, autorizadoService){
 		
 		console.log("chegou no controller de solicitantes autorizados");
 		var autorizadoCtrl = this;
@@ -17,6 +17,7 @@ apoioApp.controller('SolicitanteAutorizadoController',
 		autorizadoCtrl.msg = null;
 		autorizadoCtrl.msgErro = null;
 
+		autorizadoCtrl.tabelaListagem = null;
 
 		var notificarErro = function(msg){
 			notify({ message: msg, 
@@ -40,6 +41,8 @@ apoioApp.controller('SolicitanteAutorizadoController',
 			
 			var indexOfItem = autorizadoCtrl.autorizados.indexOf(autorizadoCtrl.autorizadoRemover);
 	        autorizadoCtrl.autorizados.splice(indexOfItem, 1);
+
+	        autorizadoCtrl.tabelaListagem =  new NgTableParams({}, { dataset: autorizadoCtrl.autorizados});
 	        
 			autorizadoCtrl.processando  = false;
 			autorizadoCtrl.msg = "Autorização foi removida com sucesso";
@@ -83,6 +86,9 @@ apoioApp.controller('SolicitanteAutorizadoController',
 			if(!autorizadoCtrl.editando){
 				autorizadoCtrl.autorizados.push(resultado);
 			}
+
+			autorizadoCtrl.tabelaListagem =  new NgTableParams({}, { dataset: autorizadoCtrl.autorizados});
+
 			autorizadoCtrl.editando = false;
 
 			autorizadoCtrl.processando  = false;
@@ -113,6 +119,8 @@ apoioApp.controller('SolicitanteAutorizadoController',
 			console.log("call back listar", resultado);
 			autorizadoCtrl.autorizados = resultado;
 			autorizadoCtrl.processando  = false;
+
+			autorizadoCtrl.tabelaListagem =  new NgTableParams({}, { dataset: autorizadoCtrl.autorizados});
 		};
 		
 		autorizadoCtrl.getListaAutorizados = function(parametros){

@@ -26,7 +26,7 @@
                 <div class="panel-heading">Recursos 
                     <a href="#" data-toggle="tab" ng-click="categoriaCtrl.adicionarCategoria()"><span class="fa fa-plus"></span>&nbsp;Nova</a>
 
-                    <div ng-show="categoriaCtrl.modoSalvarCateg" style="padding: 5px" >
+                    <div ng-show="categoriaCtrl.modoSalvarCateg" style="padding: 5px; background: #bf4346;" >
 
                         <label>Nome:</label>
                         <input type="text" name="inputNomeCateg" id="inputNomeCateg" style="margin-bottom: 5px;" class="form-control border-input" ng-model="categoriaCtrl.categSalvar.nome" md-autofocus>
@@ -38,6 +38,7 @@
                 </div>
                  
                  <div class="panel-body">
+                    <span>Clique sobre o nome do recurso para selecioná-lo</span>
                     <table class="table table-hover table-striped">
                         <thead>
                         <tr>
@@ -77,11 +78,11 @@
             </div -->
 
             <div class="panel panel-red"" ng-show="categoriaCtrl.categoriaSelecionado">
-                <div class="panel-heading" ng-show="categoriaCtrl.categoriaSelecionado">Categoria selecionada: {{categoriaCtrl.categoriaSelecionado.nome}} </div>
+                <div class="panel-heading" ng-show="categoriaCtrl.categoriaSelecionado" style="background: #bf4346; color: #000000;">Categoria selecionada: {{categoriaCtrl.categoriaSelecionado.nome}} </div>
                 <div class="panel-heading">Itens de atendimento
                     <a href="#" data-toggle="tab" ng-click="categoriaCtrl.adicionarItem()"><span class="fa fa-plus"></span>&nbsp;Novo</a>
 
-                    <div ng-show="categoriaCtrl.modoSalvarItem" >
+                    <div ng-show="categoriaCtrl.modoSalvarItem" style="background: #bf4346; padding:5px; margin-top:10px;">
                         <label>Nome:</label>
                         <input type="text" name="inputNomeItem" id="inputNomeItem" class="form-control border-input" ng-model="categoriaCtrl.itemSalvar.nome" md-autofocus>
                     

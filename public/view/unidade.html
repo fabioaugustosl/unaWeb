@@ -60,10 +60,10 @@
     <div class="row" ng-show="unidadeCtrl.empresaSelecionada" style="padding-top: 5px;">
         <div class="col-lg-12" ng-show="unidadeCtrl.empresaSelecionada">
             <div class="panel panel-red">
-                <div class="panel-heading" ng-show="unidadeCtrl.agrupamentoSelecionado">Prédio selecionado: {{unidadeCtrl.agrupamentoSelecionado.nome}} </div>
+                <div class="panel-heading" ng-show="unidadeCtrl.agrupamentoSelecionado" style="background: #bf4346;color: #000000;">Prédio selecionado: {{unidadeCtrl.agrupamentoSelecionado.nome}} </div>
                 <div class="panel-heading">Unidades de atendimento
                     <a href="#" data-toggle="tab" style="margin-left:10px;" ng-click="unidadeCtrl.adicionarUnidade()"><span class="fa fa-plus"></span>&nbsp;Nova unidade</a>
-                    <div ng-show="unidadeCtrl.modoSalvarUnidade" style="padding: 5px;">
+                    <div ng-show="unidadeCtrl.modoSalvarUnidade" style="padding: 5px; margin-top:10px; background: #bf4346;">
                         <label>Nome:</label>
                         <input type="text" name="inputNomeUnidade" id="inputNomeUnidade" class="form-control border-input" ng-model="unidadeCtrl.unidadeSalvar.nome" md-autofocus>
                     
@@ -89,7 +89,7 @@
                             <td title="'Nome'" filter="{ nome: 'text'}" sortable="'nome'">
                                 {{unid.nome}}</td>
                             <td title="'Andar'" filter="{ andar: 'number'}" sortable="'andar'">
-                                {{unid.cpf}}</td>
+                                {{unid.andar}}</td>
                             <td title="'Codigo'" filter="{ codigo: 'text'}" sortable="'codigo'">
                                 {{unid.codigo}}</td>
                             <td title="'Remover'">

@@ -41,14 +41,12 @@ apoioApp.factory('dashboardService', function($http, $log){
 			.then(
 				function(data){
 					console.log(data);
-
 					fcCallback(data.data);
 				},
 				function(data){
 					console.log('erro get apoios');
 				}
 			);
-
 	};
 
 
@@ -58,14 +56,12 @@ apoioApp.factory('dashboardService', function($http, $log){
 			.then(
 				function(data){
 					console.log(data);
-
 					fcCallback(data.data);
 				},
 				function(data){
 					console.log('erro get qtdChamadosUltimos');
 				}
 			);
-
 	};
 
 

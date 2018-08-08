@@ -129,10 +129,11 @@ apoioApp.controller('ChamadosController',
 		$scope.open = function (size) {
 
 		    var modalInstance = $uibModal.open({
-		     //animation: $scope.animationsEnabled,
+		     animation: true,
 		      templateUrl: '/view/dialogs/chamado.tmpl.html',
 		      controller: 'DialogController',
-		      //size: size,
+		      size: 'lg',
+		      appendTo : angular.element(document.querySelector('#teste')),
 		      resolve: {
 		        dataToPass: function () {
 		          return chamadoCtrl.chamadoSelecionado;

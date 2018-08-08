@@ -1,6 +1,6 @@
 
 apoioApp.controller('UnidadeController', 
-	function ($scope, $rootScope, $routeParams, $mdDialog, $sessionStorage, notify, empresaService, unidadeService){
+	function ($scope, $rootScope, $routeParams, $mdDialog, $sessionStorage, NgTableParams, notify, empresaService, unidadeService){
 		
 		var unidadeCtrl = this;
 
@@ -22,6 +22,7 @@ apoioApp.controller('UnidadeController',
 		unidadeCtrl.idAgrupamentoSelecionado = null;
 		unidadeCtrl.empresaSelecionada = null;
 
+		unidadeCtrl.tabelaListagemUnidades = null;
 		
 		var getEmpresa = function(idEmpresa){
 
@@ -50,6 +51,50 @@ apoioApp.controller('UnidadeController',
 		};
 
 
+		unidadeCtrl.dataURItoBlob = function(dataURI) {
+            // convert base64/URLEncoded data component to raw binary data held in a string
+            var byteString;
+            if (dataURI.split(',')[0].indexOf('base64') >= 0)
+                byteString = atob(dataURI.split(',')[1]);
+            else
+                byteString = unescape(dataURI.split(',')[1]);
+            // separate out the mime component
+            var mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
+            // write the bytes of the string to a typed array
+            var ia = new Uint8Array(byteString.length);
+            for (var i = 0; i < byteString.length; i++) {
+                ia[i] = byteString.charCodeAt(i);
+            }
+            return new Blob([ia], {type:mimeString});
+        };
+
+
+		unidadeCtrl.download = function(){
+			var doc = new jsPDF();
+
+			for (i = 0; i < unidadeCtrl.unidades.length; i++) { 
+				let multiplicador = i==0 ? 100 : 0;
+				
+				if(i > 0 && i % 2 === 0){
+					doc.addPage();
+					multiplicador = 100;
+				}
+				
+				var unid = unidadeCtrl.unidades[i];
+				var b64Data = unid.qrcodeImg;
+
+				var blob = unidadeCtrl.dataURItoBlob(unid.qrcodeImg);
+				var blobUrl = URL.createObjectURL(blob);
+
+				doc.text(unid.nome, 20, 40+multiplicador);
+				doc.text(unid.codigo, 20, 60+multiplicador);
+				doc.addImage(blobUrl, 'PNG', 100, 20+multiplicador, 100,100);
+			}
+
+			doc.save('unidadesDeAula.pdf');
+		};
+
+
 		unidadeCtrl.getEmpresas = function(){
 			empresaService.listarPorDono(dono, callbackListarEmpresas);		
 		};
@@ -61,7 +106,7 @@ apoioApp.controller('UnidadeController',
 		
 
 		var callbackListarAgrupamentos = function(resultado){
-			console.log("call back listar", resultado);
+			//console.log("call back listar", resultado);
 			unidadeCtrl.agrupamentos = resultado;
 			unidadeCtrl.processando  = false;
 			unidadeCtrl.idAgrupamentoSelecionado = null;
@@ -76,15 +121,16 @@ apoioApp.controller('UnidadeController',
 
 
 		var callbackListarUnidades = function(resultado){
-			console.log("call back listar", resultado);
+			//console.log("call back listar", resultado);
 			unidadeCtrl.unidades = resultado;
+			unidadeCtrl.tabelaListagemUnidades =  new NgTableParams({}, { dataset: unidadeCtrl.unidades});
 			unidadeCtrl.processando  = false;
 		};
 
 		
 		unidadeCtrl.getUnidades = function(idAgrupamento){
 			unidadeCtrl.processando = true;
-			console.log('get unidades ',idAgrupamento);
+			//console.log('get unidades ',idAgrupamento);
 			unidadeService.getUnidades(idAgrupamento, callbackListarUnidades);		
 		};
 
@@ -92,7 +138,8 @@ apoioApp.controller('UnidadeController',
 
 		unidadeCtrl.selecionarAgrupamento = function(){
 			unidadeCtrl.processando  = true;
-			console.log('selectionar agrupamento ',unidadeCtrl.idAgrupamentoSelecionado);
+			unidadeCtrl.msgErro = '';
+			//console.log('selectionar agrupamento ',unidadeCtrl.idAgrupamentoSelecionado);
 
 			for (i = 0; i < unidadeCtrl.agrupamentos.length; i++) { 
 				var ag = unidadeCtrl.agrupamentos[i];
@@ -117,9 +164,11 @@ apoioApp.controller('UnidadeController',
 				console.log('unidade selecionado: ',unidadeCtrl.agrupamentoSelecionado);
 				unidadeCtrl.modoSalvarUnidade = true;
 				unidadeCtrl.unidadeSalvar = {};
-				unidadeCtrl.unidadeSalvar.dono = "una";
+				unidadeCtrl.unidadeSalvar.dono = dono;
 				unidadeCtrl.unidadeSalvar.nome = null;
 				unidadeCtrl.unidadeSalvar.andar = null;
+
+				console.log('unidadeCtrl.unidadeSalvar: ',unidadeCtrl.unidadeSalvar)
 
 				unidadeCtrl.andares =  [];
 		    	console.log('qtd andares: ',unidadeCtrl.agrupamentoSelecionado);
@@ -145,10 +194,12 @@ apoioApp.controller('UnidadeController',
     				break;
     			}
     		} 
-    		console.log('vai remover : ', uni);
+    		//console.log('vai remover : ', uni);
 			var indexOfItem = unidadeCtrl.unidades.indexOf(unidadeExcluir);
-			console.log('index vai remover : ', indexOfItem);
+			//console.log('index vai remover : ', indexOfItem);
 		    unidadeCtrl.unidades.splice(indexOfItem, 1);
+
+		    unidadeCtrl.tabelaListagemUnidades =  new NgTableParams({}, { dataset: unidadeCtrl.unidades});
 
 			unidadeCtrl.msg = "Unidade de atendimento removida com sucesso.";
 			unidadeCtrl.msgErro = '';
@@ -157,7 +208,7 @@ apoioApp.controller('UnidadeController',
 
 
 	  	unidadeCtrl.salvarUnidade = function(){
-	  		console.log(unidadeCtrl.unidadeSalvar.nome);
+	  		//console.log(unidadeCtrl.unidadeSalvar);
 	  		if(!unidadeCtrl.unidadeSalvar.nome){
 				unidadeCtrl.msgErro = "É necessário informar o nome da sala";
 				notificarErro(unidadeCtrl.msgErro);
@@ -179,6 +230,8 @@ apoioApp.controller('UnidadeController',
 		var callbackSucessoSalvarUnidade  = function(unidadeSalva) {
 			var msg = 'Sala salva com sucesso. ';
 			unidadeCtrl.unidades.push(unidadeSalva);
+
+			unidadeCtrl.tabelaListagemUnidades =  new NgTableParams({}, { dataset: unidadeCtrl.unidades});
 
 			unidadeCtrl.msg = msg;
 			unidadeCtrl.msgErro = '';

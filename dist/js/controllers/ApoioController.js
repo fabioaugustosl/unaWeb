@@ -1,6 +1,6 @@
 
 apoioApp.controller('ApoioController', 
-	function ($scope, $rootScope, $routeParams, $sessionStorage, notify, empresaService, apoioService){
+	function ($scope, $rootScope, $routeParams, $sessionStorage, notify, NgTableParams, empresaService, apoioService){
 		
 		console.log("chegou no controller de apoios");
 		var apoioCtrl = this;
@@ -16,6 +16,8 @@ apoioApp.controller('ApoioController',
 
 		apoioCtrl.msg = null;
 		apoioCtrl.msgErro = null;
+
+		apoioCtrl.tabelaListagem = null;
 
 
 		var notificarErro = function(msg){
@@ -40,6 +42,7 @@ apoioApp.controller('ApoioController',
 			
 			var indexOfItem = apoioCtrl.apoios.indexOf(apoioCtrl.apoioRemover);
 	        apoioCtrl.apoios.splice(indexOfItem, 1);
+	        apoioCtrl.tabelaListagem =  new NgTableParams({}, { dataset: apoioCtrl.apoios});
 	        
 			apoioCtrl.processando  = false;
 			apoioCtrl.msg = "Apoio foi removido com sucesso";
@@ -94,6 +97,9 @@ apoioApp.controller('ApoioController',
 
 				apoioCtrl.apoios.push(resultado);
 			}
+			
+			apoioCtrl.tabelaListagem =  new NgTableParams({}, { dataset: apoioCtrl.apoios});
+
 			apoioCtrl.editando = false;
 
 			apoioCtrl.processando  = false;
@@ -123,6 +129,7 @@ apoioApp.controller('ApoioController',
 		var callbackListar = function(resultado){
 			console.log("call back listar", resultado);
 			apoioCtrl.apoios = resultado;
+			apoioCtrl.tabelaListagem =  new NgTableParams({}, { dataset: resultado});
 			apoioCtrl.processando  = false;
 		};
 		

@@ -60,10 +60,10 @@
     <div class="row" ng-show="unidadeCtrl.empresaSelecionada" style="padding-top: 5px;">
         <div class="col-lg-12" ng-show="unidadeCtrl.empresaSelecionada">
             <div class="panel panel-red">
-                <div class="panel-heading" ng-show="unidadeCtrl.agrupamentoSelecionado">Prédio selecionado: {{unidadeCtrl.agrupamentoSelecionado.nome}} </div>
+                <div class="panel-heading" ng-show="unidadeCtrl.agrupamentoSelecionado" style="background: #bf4346;color: #000000;">Prédio selecionado: {{unidadeCtrl.agrupamentoSelecionado.nome}} </div>
                 <div class="panel-heading">Unidades de atendimento
                     <a href="#" data-toggle="tab" style="margin-left:10px;" ng-click="unidadeCtrl.adicionarUnidade()"><span class="fa fa-plus"></span>&nbsp;Nova unidade</a>
-                    <div ng-show="unidadeCtrl.modoSalvarUnidade" style="padding: 5px;">
+                    <div ng-show="unidadeCtrl.modoSalvarUnidade" style="padding: 5px; margin-top:10px; background: #bf4346;">
                         <label>Nome:</label>
                         <input type="text" name="inputNomeUnidade" id="inputNomeUnidade" class="form-control border-input" ng-model="unidadeCtrl.unidadeSalvar.nome" md-autofocus>
                     
@@ -78,38 +78,26 @@
                 </div>
                 
                 <div class="panel-body">
-                    <table class="table table-hover table-striped">
-                       
-                       <thead>
-                            <tr>
-                                <th></th>
-                                <th>Nome</th>
-                                <th>Andar</th>
-                                <th>Código</th>
-                                <th></th>
-                            </tr>
-                        </thead>
 
-                        <tr class="tbl-item" ng-repeat="unid in unidadeCtrl.unidades | orderBy : ['andar','nome']"><!--<img/>-->
-                            <td class="img" style="width: 40px;">
-                                <img ng-src="{{unid.qrcodeImg}}" title="Código de identificação da unidade" style="max-width: 25px" />  
+                    <button class="btn btn-primary" ng-click="unidadeCtrl.download()" style="float: right;" ng-show="unidadeCtrl.unidades">Exportar unidades</button>
+
+                    <table ng-table="unidadeCtrl.tabelaListagemUnidades" class="table table-hover table-striped" show-filter="true">
+                        <tr ng-repeat="unid in $data">
+                            <td title="'QRCode'" >
+                              <img ng-src="{{unid.qrcodeImg}}" title="Código de identificação da unidade" style="max-width: 25px" />    
                             </td>
-                            <td >
-                                <p>{{unid.nome}}</p>
-                            </td>
-                            <td>
-                                <p>{{unid.andar}}</p>
-                            </td>
-                            <td>
-                                <p>{{unid.codigo}}</p>
-                            </td>
-                            <td>
-                                 <button type="button" class="btn" ng-confirm-click="Tem certeza que deseja excluir a sala {{unid.nome}}?" confirmed-click="unidadeCtrl.removerUnidade(unid._id)"><i class="fa fa-eraser fa-fw fa_custom"></i></button>
+                            <td title="'Nome'" filter="{ nome: 'text'}" sortable="'nome'">
+                                {{unid.nome}}</td>
+                            <td title="'Andar'" filter="{ andar: 'number'}" sortable="'andar'">
+                                {{unid.andar}}</td>
+                            <td title="'Codigo'" filter="{ codigo: 'text'}" sortable="'codigo'">
+                                {{unid.codigo}}</td>
+                            <td title="'Remover'">
+                                <button type="button" class="btn" ng-confirm-click="Tem certeza que deseja excluir a sala {{unid.nome}}?" confirmed-click="unidadeCtrl.removerUnidade(unid._id)"><i class="fa fa-eraser fa-fw fa_custom"></i></button>
                             </td>
                         </tr>
-
-                        </tbody>
                     </table>
+
                 </div>
             </div>
 

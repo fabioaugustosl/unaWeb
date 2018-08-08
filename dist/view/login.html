@@ -1,27 +1,48 @@
 
- <div class="page-content" ng-controller="LoginController" >
- <div class="container" >
-            <div class="form-box">
-                <form >
-                    <div>
-                        <h1>UNA</h1>
-                    </div>
+<style type="text/css">
+    
+.main-div {
+  background: #e60025 none repeat scroll 0 0;
+  border-radius: 2px;
+  margin: 10px auto 30px;
+  max-width: 30%;
+  padding: 30px 30px 30px 31px;
+  float: left;
+  margin-left:20%;
+  color: #FFFFFF;
+}
 
-                    <div class="alert alert-danger" style="margin: 10px;" role="alert" ng-show="msgErro">{{msgErro}}</div>
+</style>
 
-                    <div>
-                        <input type="text" name="username" placeholder="Informe seu login" class="form-input" ng-model="usuario" required>
+ <div class="page-content" ng-controller="LoginController" style="background: #FFFFFF!important; " >
+     <div class="container" >
+        <div class="form-box">
+            <form >
+                <div class="row">
+                    <div class="col-lg-12" style=" padding:30px;">
+                        <img src="./img/logo_una_branco.png" style="float: left;margin-left:25%" />
                     </div>
-                    
-                    <div>
-                        <input type="password" name="password" placeholder="Informe sua senha" class="form-input" ng-model="senha" required>
-                    </div>
+                </div>
 
-                    <div>
-                        <input type="button" value="Entrar" class="form-btn" ng-click="login()">
-                    </div>
+                <div class="alert alert-danger" style="margin: 10px;" role="alert" ng-show="msgErro">{{msgErro}}</div>
 
-                </form>
-            </div>
+                <div class="row ">
+                    <div class="col-lg-12 main-div" >
+                        <div class="form-group">
+                            <input type="text" name="username" placeholder="Informe seu login"  class="form-control" ng-model="usuario" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <input type="password" name="password" placeholder="Informe sua senha"  class="form-control"  ng-model="senha" required>
+                        </div>
+
+                        <div class="form-group">
+                            <input type="button" value="Entrar"  class="form-control" ng-click="login1()">
+                        </div>
+                    </div>
+                </div>
+
+            </form>
         </div>
-        </div>
+    </div>
+</div>
