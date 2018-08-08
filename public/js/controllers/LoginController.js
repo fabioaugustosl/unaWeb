@@ -25,6 +25,8 @@ apoioApp.controller('LoginController',
 					$sessionStorage.dono = usuario.dono;
 					$sessionStorage.idEmpresa = usuario.info_extra1;//"5b1d9edafd09c90010bd45a6";
 
+					$location.replace();
+					$location.url('/dashboard');
 					$window.location.reload();
 			    };
 
