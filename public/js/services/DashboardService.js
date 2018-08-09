@@ -65,13 +65,29 @@ apoioApp.factory('dashboardService', function($http, $log){
 	};
 
 
+	var mediaAvaliacaoAtendimento = function(dono, fcCallback){
+
+		$http.get(urlChamadoInfo+"mediaAvaliacaoAtendimento/"+dono)
+			.then(
+				function(data){
+					console.log(data);
+					fcCallback(data.data);
+				},
+				function(data){
+					console.log('erro get mediaAvaliacaoAtendimento');
+				}
+			);
+	};
+
+
 	
 
 	return {
 		listarMediaMinutos :listarMediaMinutos,
 		resumoQtdChamdosPorDia : resumoQtdChamdosPorDia,
 		resumoChamadosDias : resumoChamadosDias, 
-		listarChamadosAbertos : listarChamadosAbertos
+		listarChamadosAbertos : listarChamadosAbertos,
+		mediaAvaliacaoAtendimento : mediaAvaliacaoAtendimento
 	};
 
 

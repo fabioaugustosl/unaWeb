@@ -25,9 +25,11 @@ apoioApp.controller('LoginController',
 					$sessionStorage.dono = usuario.dono;
 					$sessionStorage.idEmpresa = usuario.info_extra1;//"5b1d9edafd09c90010bd45a6";
 
+					$scope.$emit("usuarioAutenticado", "true");
+
 					$location.replace();
-					$location.url('/');
-					$window.location.reload();
+					$location.url('/dashboard');
+					//$window.location.reload();
 			    };
 
 			    //console.log('Senha md5: ',md5.createHash($scope.senha || ''));
@@ -40,7 +42,7 @@ apoioApp.controller('LoginController',
 	  	
 
 	  	console.log('is isAuthenticated login controller ',loginService.isAuthenticated());
-	  	
+	  	console.log('usuario logado login controlelr: ', $sessionStorage.usuarioLogado);
 	  	if(!loginService.isAuthenticated()){
 	  		
 	  		if($sessionStorage.usuarioLogado){

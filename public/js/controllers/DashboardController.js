@@ -238,6 +238,20 @@ apoioApp.controller('DashboardController',
 
 
 
+		var recuperarMediaAvaliacaoProfessor = function(){
+			console.log('recuperarMediaAvaliacaoProfessor');
+			
+			var callback = function(avaliacao){ 
+				console.log('calback recuperarMediaAvaliacaoProfessor : ',avaliacao);
+
+				dashboardCtrl.mediaProfessores = avaliacao[0].mediaAvaliacaoAtendimento;
+			};
+
+			dashboardService.mediaAvaliacaoAtendimento(dono, callback);
+		};
+
+
+
 		/*var recuperarApoios = function(){
 			console.log('recuperar recuperarApoios');
 			
@@ -270,11 +284,13 @@ apoioApp.controller('DashboardController',
 
 		//$timeout(function(){recuperarApoios()}, 700);
 
-		
 
 		$interval( function(){ montarContadoresChamados(); }, 60000);
 
 		$interval( function(){ recuperarChamadosAbertos(); }, 60500);
+
+		$interval( function(){ recuperarMediaAvaliacaoProfessor(); }, 30000);
+		
 
 	}
 );
