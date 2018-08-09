@@ -28,8 +28,8 @@ apoioApp.controller('LoginController',
 					$scope.$emit("usuarioAutenticado", "true");
 
 					$location.replace();
-					$location.url('/dashboard');
-					$window.location.reload();
+					//$location.url('/dashboard');
+					$window.location.href = "/";
 			    };
 
 			    //console.log('Senha md5: ',md5.createHash($scope.senha || ''));
