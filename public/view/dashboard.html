@@ -5,7 +5,7 @@
             <div class="col-sm-3 col-md-3 " ng-repeat="apoio in dashboardCtrl.atendentesOcupados" >
                 <div class="panel profit db mbm" >
                     <div class="panel-body" style="background: #68838B; color:#000000;padding:5px;">
-                        <h4 class="value" style="margin-top: -8px;">
+                        <h4 class="value" style="margin-top: -8px; color: #FFFFFF">
                             <span  style="font-size: 20px;">{{apoio.nome}}</span> <span style="font-size: 12px;">{{apoio.sala}}</span></h4>
                     </div>
                 </div>
@@ -118,7 +118,7 @@
                             </div>
                             <div class="portlet-body">
                                 <p class="help-block">
-                            Acompanhamento diário dos últimos 15 dias</p>
+                            Acompanhamento diário dos últimos 10 dias</p>
                                 <canvas id="graficoChamadosAbertosPorDia" width="500" height="200"></canvas>
                             </div>
                         </div>
@@ -198,7 +198,7 @@
                                              <span ng-show="aberto.nomeAtendente">Atendente:{{aberto.nomeAtendente}}<br /></span>
                                              
                                              <span
-                                            class="chat-datetime">Aberto às {{aberto.dataCriacao | date: 'hh:mm'}}hrs de {{aberto.dataCriacao | date: 'dd MMM'}}</span>
+                                            class="chat-datetime">Aberto às {{aberto.dataCriacao | date: 'HH:mm'}}hrs de {{aberto.dataCriacao | date: 'dd MMM'}}</span>
                                                 
                                         </div>
                                     </li>

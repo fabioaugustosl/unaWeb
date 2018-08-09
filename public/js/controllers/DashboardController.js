@@ -171,7 +171,8 @@ apoioApp.controller('DashboardController',
 
 		        var myLineChart = new Chart($('#graficoChamadosAbertosPorDia'), {
 				    type: 'bar',
-				    data: data 
+				    data: data
+				    
 				});
 			};
 
@@ -281,6 +282,8 @@ apoioApp.controller('DashboardController',
 		$timeout(function(){montarContadoresChamados()}, 100);
 		//$timeout(function(){recuperarChamadosAbertos()}, 250);
 		$timeout(function(){recuperarResumoQtdChamadosAbertosDia()}, 400);
+		
+		$timeout(function(){recuperarMediaAvaliacaoProfessor()}, 1000);
 
 		//$timeout(function(){recuperarApoios()}, 700);
 
@@ -289,7 +292,7 @@ apoioApp.controller('DashboardController',
 
 		$interval( function(){ recuperarChamadosAbertos(); }, 60500);
 
-		$interval( function(){ recuperarMediaAvaliacaoProfessor(); }, 30000);
+		$interval( function(){ recuperarMediaAvaliacaoProfessor(); }, 80000);
 		
 
 	}

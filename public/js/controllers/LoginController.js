@@ -29,17 +29,14 @@ apoioApp.controller('LoginController',
 
 					$location.replace();
 					$location.url('/dashboard');
-					//$window.location.reload();
+					$window.location.reload();
 			    };
 
 			    //console.log('Senha md5: ',md5.createHash($scope.senha || ''));
 				loginService.login($scope.usuario, md5.createHash($scope.senha || '') , $sessionStorage.dono, cbSucesso, cbErro);
 			}
 		};
-
-
-
-	  	
+  	
 
 	  	console.log('is isAuthenticated login controller ',loginService.isAuthenticated());
 	  	console.log('usuario logado login controlelr: ', $sessionStorage.usuarioLogado);

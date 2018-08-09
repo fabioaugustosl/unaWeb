@@ -6,6 +6,14 @@ apoioApp.controller('MenuController',
 
 		$scope.usuarioAutenticado = false;
 
+		$scope.$on('usuarioAutenticado', function (event, args) {
+			console.log('PRINCIPAL CONTROLLER ONNN  ',args);
+			//$scope.usuarioAutenticado = args;
+			$scope.usuarioAutenticado = true;
+			console.log($scope.usuarioAutenticado);
+		});
+
+
 		console.log('is isAuthenticated Menu COntroller: ',loginService.isAuthenticated());
 		if(!loginService.isAuthenticated()){
 	  	
