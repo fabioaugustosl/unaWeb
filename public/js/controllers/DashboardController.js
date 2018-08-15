@@ -154,7 +154,7 @@ apoioApp.controller('DashboardController',
 				var data ={
 		       		labels: rotulos,
 			       	datasets: [{
-			            label: 'Quantidade de chamados por dia',
+			            label: 'Total chamados abertos',
 			            pointRadius: 5,
             			pointHitRadius: 20,
             			backgroundColor: "#CD0000",

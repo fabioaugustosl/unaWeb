@@ -112,10 +112,10 @@
 
 
 
-        <div id="wrapper"  >
+        <div id="wrapper" >
             <!--BEGIN SIDEBAR MENU-->
             <nav id="sidebar" role="navigation" data-step="2" data-intro="Template has &lt;b&gt;many navigation styles&lt;/b&gt;"  ng-controller="MenuController" ng-show="usuarioAutenticado"
-                data-position="right" class="navbar-default navbar-static-side">
+                data-position="right" class="navbar-default navbar-static-side" ng-cloak>
             <div class="sidebar-collapse menu-scroll" >
                 <ul id="side-menu" class="nav">
                     
@@ -200,7 +200,7 @@
 
 
             <!--BEGIN PAGE WRAPPER-->
-            <div id="page-wrapper" ng-controller="PrincipalController">
+            <div id="page-wrapper" ng-controller="PrincipalController" ng-cloak>
                 <!--BEGIN TITLE & BREADCRUMB PAGE-->
                 <div id="title-breadcrumb-option-demo" class="page-title-breadcrumb" style="background: #f0f2f5;">
                     <div class="page-header pull-left" >

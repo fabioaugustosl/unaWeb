@@ -6,7 +6,7 @@
                 <div class="panel profit db mbm" >
                     <div class="panel-body" style="background: #68838B; color:#000000;padding:5px;">
                         <h4 class="value" style="margin-top: -8px; color: #FFFFFF">
-                            <span  style="font-size: 20px;">{{apoio.nome}}</span> <span style="font-size: 12px;">{{apoio.sala}}</span></h4>
+                            <span  style="font-size: 20px;">{{apoio.nome}}</span> <span style="font-size: 10px;">{{apoio.sala}}</span></h4>
                     </div>
                 </div>
             </div>
@@ -35,38 +35,8 @@
 
      <div id="tab-general">
         <div id="sum_box" class="row mbl"> 
-                <div class="col-sm-3 col-md-3 " >
-                   
-                    <div class="panel profit db mbm">
-                        <div class="panel-body" style="background: #008B45; color:#000000; padding:7px;">
-                            <p class="icon" >
-                                <i class="icon fa fa-bell-o" style="font-size: 40px;"></i>
-                            </p>
-                            <h4 class="value">
-                                <span  style="font-size: 40px;" >{{dashboardCtrl.resumoChamadosOnline.abertos}}</span></h4>
-                            <p class="description" style="margin-bottom:0px;">Abertos hoje</p>
-                        </div>
-                    </div>
-
-                </div>
 
                 <div class="col-sm-3 col-md-3 " >
-                   
-                    <div class="panel profit db mbm">
-                        <div class="panel-body" style="background: #EEB422; color:#000000;padding:7px;">
-                            <p class="icon" >
-                                <i class="icon fa fa-wrench" style="font-size: 40px;"></i>
-                            </p>
-                            <h4 class="value">
-                                <span  style="font-size: 40px;">{{dashboardCtrl.resumoChamadosOnline.atendimento}}</span></h4>
-                            <p class="description" style="margin-bottom:0px;">Em atendimento</p>
-                        </div>
-                    </div>
-
-                </div>
-
-                <div class="col-sm-3 col-md-3 " >
-                   
                     <div class="panel profit db mbm">
                         <div class="panel-body" style="background: #CD3333;  color:#FFFFFF;padding:7px;">
                             <p class="icon" >
@@ -77,12 +47,35 @@
                             <p class="description" style="margin-bottom:0px;">Aguardando atendimento</p>
                         </div>
                     </div>
-
                 </div>
 
+                <div class="col-sm-3 col-md-3 " >
+                    <div class="panel profit db mbm">
+                        <div class="panel-body" style="background: #20B2AA; color:#000000;padding:7px;">
+                            <p class="icon" >
+                                <i class="icon fa fa-wrench" style="font-size: 40px;"></i>
+                            </p>
+                            <h4 class="value">
+                                <span  style="font-size: 40px;">{{dashboardCtrl.resumoChamadosOnline.atendimento}}</span></h4>
+                            <p class="description" style="margin-bottom:0px;">Em atendimento</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-3 col-md-3 " >
+                    <div class="panel profit db mbm">
+                        <div class="panel-body" style="background: #4682B4; color:#000000; padding:7px;">
+                            <p class="icon" >
+                                <i class="icon fa fa-bell-o" style="font-size: 40px;"></i>
+                            </p>
+                            <h4 class="value">
+                                <span  style="font-size: 40px;" >{{dashboardCtrl.resumoChamadosOnline.abertos}}</span></h4>
+                            <p class="description" style="margin-bottom:0px;">Abertos hoje</p>
+                        </div>
+                    </div>
+                </div>
              
                 <div class="col-sm-3 col-md-3 " >
-                 
                     <div class="panel profit db mbm">
                         <div class="panel-body" style="background: #4F4F4F; color: #FFFFFF; padding:7px;">
                             <p class="icon" >
@@ -93,7 +86,6 @@
                             <p class="description" style="margin-bottom:0px;">Fechados hoje</p>
                         </div>
                     </div>
-
                 </div>
         </div>
     </div>
